@@ -1,0 +1,70 @@
+﻿@model IEnumerable<Escuela_Sor_Maria.Models.tbPersona>
+
+@{
+    ViewData["Title"] = "ListaPersonas";
+}
+
+<div class="container">
+    <h2>Lista de Profesores</h2>
+    <hr />
+    <div class="shadow-mj br-15 px-1 py-3 offser-12">
+        <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr class="text-white">
+                    <th>
+                        @Html.DisplayNameFor(model => model.Nombre)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Apellido1)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Apellido2)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FechaNacimiento)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Sexo)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Telefono)
+                    </th>
+                    <th>Accciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr class="text-white">
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Nombre)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Apellido1)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Apellido2)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FechaNacimiento)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Sexo)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Telefono)
+                        </td>
+                        <td>
+                            @*<a class="nav-link btn btn-Menu " asp-area="Identity" asp-page="/Account/Register">Register</a>*@
+                            <a asp-action="Edit" asp-route-id="@item.Cedula">Actualizar Informacón</a> |
+                            <a asp-action="Details" asp-route-id="@item.Cedula">Vista Detallada</a> |
+                            <a asp-action="Delete" asp-route-id="@item.Cedula">Suspemder Docente</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    </div>
+</div>

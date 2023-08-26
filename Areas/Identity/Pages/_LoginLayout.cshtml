@@ -1,0 +1,87 @@
+﻿@{
+    Layout = "/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="container-fluid">
+    <div class="row  ">
+        <div class="col-12   col-md-5 col-sm-4 col-xl-3 order-md-2  ">
+            <div class="card bg-transparent p-0 m-0 border-0 shadow-mj2 card-body  ">
+                <div class="row     ">
+                    <div class="col-12  ">
+                        <div class="card login-logout-card bg-transparent shadow-lg border-radios">
+                            <div class="card-header">
+                                <ul class="nav nav-tabs card-header-tabs  ">
+                                    <li class="nav-item">
+                                        <a class="nav-link text-white" href="/Identity/Account/Login">
+                                            Log Ins
+                                        </a>
+                                    </li>
+                                    <li class="nav-item ">
+                                        <a class="nav-link text-white" href="/Identity/Account/Register">
+                                            Registrarse
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="card-body ColorCar">
+                                <div class="row justify-content-center m-0 ColorCar">
+                                    <div class="col-12 my-1 ColorCar" id="contenido">
+                                        @RenderBody()
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12  col-md-7 col-sm-8 col-xl-9 order-md-1 ">
+            <div id="carouselExample" class="carousel slide">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="~/Asignar Materias.png " class="d-block  img-Carru" alt="...">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="~/configuracion.png" class="d-block img-Carru" alt="...">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="~/DocentesCompuestos.png" class="d-block img-Carru" alt="...">
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </div>
+
+    </div>
+    
+</div>
+<div class="marquee container-fluid my-5">
+    <p>Este es un ejemplo de marquesina. </p>
+</div>
+
+
+
+@section Scripts{
+    @await RenderSectionAsync("Scripts", required: false)
+    <script>
+        $(function () {
+            const currentPage = location.pathname;
+            $('.nav-tabs li a').each(function () {
+                const $this = $(this);
+                if (currentPage.toLowerCase().indexOf($this.attr('href').toLowerCase()) !== -1) {
+                    $this.addClass('active ');
+                }
+            })
+        })
+    </script>
+
+}

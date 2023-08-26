@@ -1,0 +1,106 @@
+﻿@using Microsoft.AspNetCore.Identity;
+@using Microsoft.AspNetCore;
+@model Escuela_Sor_Maria.Models.Usuarios
+
+@{
+    ViewData["Title"] = "ListaUserRegistrados";
+}
+<div class="container">
+    <h1>Usuarios Registrados</h1>
+
+    <hr />
+
+    <div class="col mx-3 my-3">
+        <a class="btn otorgar-boton p-1" asp-action="CrearRol2" asp-controller="Admin">Nuevo Rol</a>
+    </div>
+
+    <div class="shadow-mj br-15 px-5 py-3 table-responsive">
+        <table class="table table-striped table text-center text-white  ">
+            <thead>
+                <tr class="text-white">
+                    <th  hidden>ID Usuario</th>
+                    <th>Emails Registrados</th>
+                    <th>Cedulas Registradas</th>
+                    <th>Rol Asignados</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.usuarios)
+                {
+
+
+                    <tr class="text-white">
+                        <td hidden>@Html.DisplayFor(x => item.Id)</td>
+                        <td>@Html.DisplayFor(x => item.UserName)</td>
+                        <td>@Html.DisplayFor(x => item.Email)</td>
+                        <td>
+                            @{
+                                var idUser = item.Id;
+
+                                var idRol = Model.rolesFk.Where(x => x.UserId == idUser).ToList();
+
+
+
+                                var ExisteCedulaPersona = Model.Profesores.Any(p => p.Cedula == item.Email);
+                                if (ExisteCedulaPersona == false)
+                                {
+                                    <span>Visitante</span>
+
+                                }
+                                else
+                                {
+
+                                    foreach (var rol in idRol)
+                                    {
+                                        var NombreRol = Model.roles.Where(x => x.Id == rol.RoleId).Select(x => x.Name).FirstOrDefault();
+                                        @Html.Raw(" ") @NombreRol
+                                    }
+                                }
+
+                            }
+                        </td>
+                        <td>
+                            @if (ExisteCedulaPersona == true)
+                            {
+
+                                if (!idRol.Any())
+                                {
+                                    <a class="btn otorgar-boton btn-sm p-1" asp-action="AsignarRolUser" asp-route-ID="@item.Id">Otorgar rol</a>
+                                }
+                                else
+                                {
+                                    foreach (var rol in idRol)
+                                    {
+                                        var NombreRol = Model.roles.Where(x => x.Id == rol.RoleId).Select(x => x.Name).FirstOrDefault();
+
+                                        <form asp-controller="Admin" asp-action="RevocarRol" method="post">
+                                            <input type="hidden" name="UserId" value="@item.Id" />
+
+
+                                            <input type="hidden" name="RoleName" value="@NombreRol" />
+                                            <button class="btn revocar-boton btn-sm p-1 " type="submit">
+                                                Revocar Rol
+                                            </button>
+                                        </form>
+                                    }
+
+                                    @*<a class="btn revocar-boton btn-sm p-1 " asp-action="AsignarRolUser">Revocar Rol</a>*@
+                                }
+                            }
+                            else
+                            {
+                                <a></a>
+                            }
+                        </td>
+                    </tr>
+
+
+                }
+            </tbody>
+        </table>
+    </div>
+
+
+    <a class="btn retornar-boton p-1 my-5 mx-2" asp-action="ListaRoles" asp-controller="Admin">Volver al menu anterior</a>
+</div>

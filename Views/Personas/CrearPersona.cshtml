@@ -1,0 +1,113 @@
+﻿@model Escuela_Sor_Maria.Models.tbPersona
+@{
+    ViewData["Title"] = "CrearPersona";
+}
+
+<div class="container">
+    <h1>Datos Personales del Docente</h1>
+    <hr />
+    <div class="row justify-content-center">
+        <div class="col-md-12 ">
+            <form asp-action="CrearPersona">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="row">
+                    <div class="col-md-6 ">
+                        <div class="form-group mx-4 my-2">
+                            <label asp-for="Cedula" class="control-label">Cedula</label>
+                            <input asp-for="Cedula" id="Cedula" class="form-control br-10" required />
+                            <span asp-validation-for="Cedula" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mx-4 my-2">
+                            <label asp-for="Nombre" class="control-label">Nombre</label>
+                            <input asp-for="Nombre" class="form-control br-10" required />
+                            <span asp-validation-for="Nombre" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mx-4 my-2">
+                            <label asp-for="Apellido1" class="control-label">Primer Apellido</label>
+                            <input asp-for="Apellido1" class="form-control br-10" required />
+                            <span asp-validation-for="Apellido1" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mx-4 my-2">
+                            <label asp-for="Apellido2" class="control-label">Segundo Apellido</label>
+                            <input asp-for="Apellido2" class="form-control br-10" required />
+                            <span asp-validation-for="Apellido2" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mx-4 my-2">
+                            <label asp-for="FechaNacimiento" class="control-label">Fecha de Nacimiento</label>
+                            <input asp-for="FechaNacimiento" class="form-control br-10" required />
+                            <span asp-validation-for="FechaNacimiento" class="text-danger"></span>
+                        </div>
+                        <div class="form-group mx-4 my-2">
+                            <label asp-for="Sexo" class="control-label">Sexo</label>
+                            <select asp-for=" Sexo"  name="Sexo" data-val="false" class="form-select br-10 " required>
+                                <option disabled selected>Seleccione El Genero</option>
+                                <option value="Hombre">Hombre</option>
+                                <option value="Mujer">Mujer</option>
+                            </select>
+                            <span asp-validation-for="Sexo" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6  ">
+                        <div class="form-group mx-4 my-2">
+                            <label asp-for="Telefono" class="control-label">Teléfono</label>
+                            <input asp-for="Telefono" class="form-control br-10" required/>
+                            <span asp-validation-for="Telefono" class="text-danger"></span>
+                        </div>
+                        
+                        <div class="form-group  mx-4 my-2">
+                            <label asp-for=" ProvinciaID" class="control-label  "></label>
+                            <select asp-for=" ProvinciaID" id="Provincia" name="ProvinciaID" data-val="false" class="form-select br-10 " required>
+                                <option disabled selected >Seleccione una Provincia</option>
+                            </select>
+                            <span asp-validation-for=" ProvinciaID" class="text-danger"></span>
+                        </div>
+                        <div class="form-group  mx-4 my-2">
+                            <label asp-for=" CantonID" class="control-label  "></label>
+                            <select asp-for=" CantonID" id="Canton" name="CantonID" data-val="false" class="form-select br-10 " required>
+                                <option disabled selected>Seleccione un Cantón</option>
+                            </select>
+                            <span asp-validation-for=" CantonID" class="text-danger"></span>
+                        </div>
+                        <div class="form-group  mx-4 my-2">
+                            <label asp-for="DistritoID" class="control-label  "></label>
+                            <select asp-for="DistritoID" id="Distrito" name="DistritoID" data-val="false" class="form-select  br-10 " required>
+                                <option disabled selected>Seleccione un Distrito</option>
+                            </select>
+                            <span asp-validation-for="DistritoID" class="text-danger"></span>
+                        </div>
+                        <div class="form-group  mx-4 my-2">
+                            <label asp-for="BarrioID" class="control-label  "></label>
+                            <select asp-for="BarrioID" id="Barrio" name="BarrioID" data-val="false" class="form-select br-10 " required>
+                                <option disabled selected>Seleccione el Barrio</option>
+                            </select>
+                            <span asp-validation-for="BarrioID" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mx-4 my-2">
+                            
+                            <label asp-for="Direccion" class="control-label">Dirección</label>
+                            <input asp-for="Direccion" class="form-control br-10" required />
+                            <span asp-validation-for="Direccion" class="text-danger"></span>
+                        </div>
+
+
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <a asp-action="MenuRegistros" asp-controller="home">Back to List</a>
+                    <input type="submit" value="Crear Persona" class="btn btn-Menu"   />
+                    
+                </div>
+            </form>
+           
+        </div>
+    </div>
+</div>
+     
+
+

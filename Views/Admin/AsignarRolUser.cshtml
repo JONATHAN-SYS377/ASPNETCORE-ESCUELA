@@ -1,0 +1,35 @@
+﻿@model Escuela_Sor_Maria.Models.TbUnionUser_Role
+@{
+    ViewData["Title"] = "AsignarRolUser";
+}
+
+<div class="container">
+    <h3>Otorgar rol al usuario  seleccionado</h3>
+    <hr />
+    <div class="shadow-mj br-15 px-5 py-3 table-responsive">
+        
+        <form asp-controller="Admin" asp-action="OtorgarRol" method="post">
+            
+            <div class="form-group w-25">
+                <input type="hidden" asp-for="UserId" value="@ViewBag.id" />
+                <label class="my-2" >Roles Disponibles</label>
+                <select asp-for="RoleName" id="Role" class="form-select">
+                    <option disabled selected> Seleccione el Rol</option>
+                    @foreach (var rol in ViewBag.rol)
+                    {
+                        <option value="@rol.Name">@rol.Name</option>
+                    }
+                </select>
+
+                <button type="submit" class="btn otorgar-boton p-1 my-3">
+                    otorgar rol
+                </button>
+            </div>
+        </form>
+    </div>
+    <a class="btn retornar-boton p-1 my-5 mx-2" asp-action="ListaUserRegistrados" asp-controller="Admin">Volver al menu anterior</a>
+</div>
+@section Scripts {
+
+}
+

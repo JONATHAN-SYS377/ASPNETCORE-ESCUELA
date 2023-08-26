@@ -1,0 +1,329 @@
+
+
+/*====================================== CLASES ESTANDARES ============================================*/
+
+
+html {
+    font-size: 14px;
+}
+
+html, body {
+    height: 100%;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+    height: 100%;
+}
+
+.header {
+    position: fixed;
+    top: 0;
+    z-index: 99999999999999999;
+    width: 100%;
+    background: linear-gradient( to right,#586d68 0%, #496763 5%, #37605d 10%, #1f5959 30%, #005156 40%, #004a54 50%, #004453 60%, #003d52 80%, #004453 100% );
+}
+
+body {
+    margin-bottom: 50px;
+    color: white;
+    font-family: Roboto,sans-serif;
+    /*background: red;*/ /* For browsers that do not support gradients */
+    /*background: -webkit-linear-gradient(left,rgba(255,0,0,0),rgba(255,0,0,1));*/ /*Safari 5.1-6*/
+    /*background: -o-linear-gradient(right,rgba(255,0,0,0),rgba(255,0,0,1));*/ /*Opera 11.1-12*/
+    /*background: -moz-linear-gradient(right,rgba(255,0,0,0),rgba(255,0,0,1));*/ /*Fx 3.6-15*/
+    /*background: linear-gradient(to right, rgba(9,82,87,4), rgba(0,79,87,0.6), rgba(0,72,85,0.8), rgba(0,61,82,1));*/ /*Standard*/
+    background: linear-gradient( to right,#586d68 0%, #496763 5%, #37605d 10%, #1f5959 30%, #005156 40%, #004a54 50%, #004453 60%, #003d52 80%, #004453 100% );
+}
+
+.Contenedor {
+    height: 100%;
+    margin-top: 100px;
+}
+/* Estilos para el contenido principal */
+.main-content {
+    flex: 1; /* Toma el espacio restante */
+}
+
+/* Estilos para el pie de página */
+.footer {
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    padding: 1rem 0;
+}
+
+/*====================================== CLASES PARA lOGIN ============================================*/
+
+
+.login-logout-card .card-body {
+    padding: 10px 20px;
+}
+
+.form-floating > .form-control, .form-floating > .form-select {
+    height: calc(2rem + 2px);
+    line-height: 1.25;
+}
+
+/*====================================== CLASES PARA COLORES ============================================*/
+
+.bg-gradiente {
+      background-image: linear-gradient(180deg, #65736e 0, #586d68 12.5%, #496763 25%, #37605d 37.5%, #1f5959 50%, #005156 62.5%, #004a54 75%, #004453 87.5%, #003d52 100%);
+
+}
+
+.shadow-mj {
+    box-shadow: 1px 12px 25px rgba(210,210,210,.3) !important;
+}
+
+.shadow-mj2 {
+    box-shadow: 2px 5px 15px rgba(210,210,210,.3) !important;
+}
+
+.ColorCar {
+    background-color: #004B54;
+}
+
+.ColorTap {
+    background-color: #004B54;
+}
+
+.nav-tabs .nav-link.active {
+    color: #ffffff;
+    background-color: #004B54;
+    border-color: #232324 #232324 #004B54;
+}
+/*====================================== CLASES PARA BORDES RADONDEADOS ============================================*/
+.br-10 {
+    border-radius: 10px;
+}
+
+.br-15 {
+    border-radius: 15px;
+}
+
+.br-20 {
+    border-radius: 20px;
+}
+
+/*====================================== CLASES PARA TIPOS DE FUETES ============================================*/
+.ft-E {
+    font-family: Ethnocentric;
+}
+/*====================================== CLASES PARA IMAGENES ============================================*/
+
+.img-ico {
+    height: 40px;
+    width: 55px;
+}
+
+.img-menu {
+    width: 100%;
+    height: 150px;
+    padding: 15px;
+}
+
+.img-Carru {
+    width: 95%;
+    height: 400px;
+    padding: 15px;
+}
+/*@media (max-width: 995px) {
+    .img-menu {
+        width: auto;
+        height: 150px;
+        padding: 15px;
+    }
+}*/
+/*====================================== CLASES PARA BOTONES ============================================*/
+.button-clik-me {
+    display: inline-block;
+    padding: 15px 10px;
+    font-size: 15px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: #0F6E90;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 1px 2px #999;
+    font-family: Ethnocentric;
+}
+
+    .button-clik-me:hover {
+        background-color: #137EA6
+    }
+
+    .button-clik-me:active {
+        background-color: #61A9C3;
+        box-shadow: 0 5px #666;
+        transform: translateY(2px);
+    }
+
+.btn-Menu {
+    display: inline-block;
+    padding: 5px 5px;
+    font-size: 13px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-image: linear-gradient(155deg, #00ffff 0, #00e5ff 15%, #26bff9 40%, #389aca 55%, #3b7a9f 100%);
+    border: none;
+    border-radius: 8px;
+    box-shadow: 1px 1px #137EA6;
+    font-family: Ethnocentric;
+}
+
+    .btn-Menu:hover {
+        background-color: #137EA6
+    }
+
+    .btn-Menu:active {
+        background-color: #61A9C3;
+        box-shadow: 0 5px #666;
+        transform: translateY(2px);
+    }
+
+.btn-logout {
+    display: inline-block;
+    padding: 5px 5px;
+    font-size: 13px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-image: radial-gradient(circle at -2.22% 40.79%, #ff6f00 0, #ff5900 16.67%, #f34015 33.33%, #e12020 50%, #cd0026 66.67%, #bb002b 83.33%, #ab0030 100%);
+    border: none;
+    border-radius: 8px;
+    box-shadow: 1px 1px #721e1e;
+    font-family: Ethnocentric;
+}
+
+    .btn-logout:hover {
+        background-color: #137EA6
+    }
+
+    .btn-logout:active {
+        background-color: #61A9C3;
+        box-shadow: 0 5px #666;
+        transform: translateY(2px);
+    }
+
+.revocar-boton {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #FF5733;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+ 
+}
+
+    .revocar-boton:hover {
+        background-color: #D1400A;
+    }
+
+    .revocar-boton:focus {
+        outline: none;
+    }
+
+.otorgar-boton {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #33A0FF;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+ 
+}
+
+    .otorgar-boton:hover {
+        background-color: #1E90FF;
+    }
+
+.otorgar-boton:focus {
+    outline: none;
+}
+
+.retornar-boton {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #66CC66;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+    .retornar-boton:hover {
+        background-color: #4CAF50;
+    }
+
+    .retornar-boton:focus {
+        outline: none;
+    }
+/*====================================== CLASES PARA MARGENES ============================================*/
+
+.mr-lg-3 {
+    margin-right: 3rem !important;
+    /* margin-left: 3rem!important; */
+}
+
+@media (max-width: 995px) {
+    .mr-lg-3 {
+        margin-right: 1rem !important;
+    }
+}
+
+@media (max-width: 769px) {
+    .mr-lg-3 {
+        margin-right: 0 !important;
+    }
+}
+
+/*====================================== CLASES CLASES ANIMACIONES============================================*/
+.marquee {
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+    .marquee p {
+        display: inline-block;
+        margin: 0;
+        animation: marquee 10s linear infinite;
+    }
+
+@keyframes marquee {
+    0% {
+        transform: translateX(500%);
+    }
+
+    100% {
+        transform: translateX(-100%);
+    }
+}
