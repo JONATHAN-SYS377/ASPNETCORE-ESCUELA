@@ -4,18 +4,23 @@ namespace Escuela_Sor_Maria.Models
 {
     public class tbCursos
     {
-        public int Id { get; set; }
+        [Key]
+        public int IdCurso { get; set; }
 
         [Required]
-        public string NombreGrado { get; set; }
+        [Display(Name = "Nombre del Curso")]
+        public string NombreCursoo { get; set; }
 
         [Required]
+        [Display(Name = "Descripción breve")]
         public string Descripcion { get; set; }
 
         [Required]
+        [Display(Name = "Nivel ('Basíco, Intermedio, Avanzado')")]
         public string Nivel  { get; set; }
 
         [Required]
+        [Display(Name = "Duración del Curso ('Meses')")]
         public string Duracion { get; set; }
 
         [Required]

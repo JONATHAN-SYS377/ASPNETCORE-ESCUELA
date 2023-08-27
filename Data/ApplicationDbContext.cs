@@ -13,7 +13,7 @@ namespace Escuela_Sor_Maria.Data
 
 
         }
-        public DbSet<tbPersona> tbPersona { get; set; }
+        public DbSet<tbProfesores> tbPersona { get; set; }
         public DbSet<tbProvincia> tbProvincia { get; set; }
         public DbSet<tbCanton> tbCanton { get; set; }
         public DbSet<tbDistrito> tbDistrito { get; set; }
@@ -51,5 +51,7 @@ namespace Escuela_Sor_Maria.Data
                 .WithMany(d => d.Barrios)
                 .HasForeignKey(b => new { b.ProvinciaID, b.CantonID, b.DistritoID });
         }
+
+        public DbSet<Escuela_Sor_Maria.Models.Alumno_Ubicacion> Alumno_Ubicacion { get; set; } = default!;
     }
 }

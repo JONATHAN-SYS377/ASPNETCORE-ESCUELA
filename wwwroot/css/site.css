@@ -45,6 +45,7 @@ body {
     /*background: -moz-linear-gradient(right,rgba(255,0,0,0),rgba(255,0,0,1));*/ /*Fx 3.6-15*/
     /*background: linear-gradient(to right, rgba(9,82,87,4), rgba(0,79,87,0.6), rgba(0,72,85,0.8), rgba(0,61,82,1));*/ /*Standard*/
     background: linear-gradient( to right,#586d68 0%, #496763 5%, #37605d 10%, #1f5959 30%, #005156 40%, #004a54 50%, #004453 60%, #003d52 80%, #004453 100% );
+
 }
 
 .Contenedor {
@@ -104,6 +105,15 @@ body {
     background-color: #004B54;
     border-color: #232324 #232324 #004B54;
 }
+
+.Fondo {
+    background-image: url('../ff.png');
+    background-position: left;
+    background-repeat: no-repeat;
+    height: 90vh;
+    width: 90vw;
+    background-size: contain;
+}
 /*====================================== CLASES PARA BORDES RADONDEADOS ============================================*/
 .br-10 {
     border-radius: 10px;
@@ -120,6 +130,7 @@ body {
 /*====================================== CLASES PARA TIPOS DE FUETES ============================================*/
 .ft-E {
     font-family: Ethnocentric;
+    font-size:25px;
 }
 /*====================================== CLASES PARA IMAGENES ============================================*/
 
@@ -286,6 +297,67 @@ body {
     .retornar-boton:focus {
         outline: none;
     }
+
+.editar-boton {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #3498db;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+    .editar-boton:hover {
+        background-color: #2980b9;
+    }
+
+    .editar-boton:focus {
+        outline: none;
+    }
+
+.detalle-boton {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #e67e22;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+    .detalle-boton:hover {
+        background-color: #d35400;
+    }
+
+    .detalle-boton:focus {
+        outline: none;
+    }
+
+.eliminar-boton {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #e74c3c;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+    .eliminar-boton:hover {
+        background-color: #c0392b;
+    }
+
+    .eliminar-boton:focus {
+        outline: none;
+    }
+
 /*====================================== CLASES PARA MARGENES ============================================*/
 
 .mr-lg-3 {
@@ -304,7 +376,31 @@ body {
         margin-right: 0 !important;
     }
 }
-
+@media (max-width: 1280px) {
+    .EsoacioNavbar {
+        width: 10px;
+    }
+}
+@media (min-width: 1281px) {
+    .EsoacioNavbar {
+        width: 100px;
+    }
+}
+@media (min-width: 1367px) {
+    .EsoacioNavbar {
+        width: 250px;
+    }
+}
+@media (min-width: 1620px) {
+    .EsoacioNavbar {
+        width: 300px;
+    }
+}
+@media (min-width: 1920px) {
+    .EsoacioNavbar {
+        width: 550px;
+    }
+}
 /*====================================== CLASES CLASES ANIMACIONES============================================*/
 .marquee {
     width: 100%;
@@ -327,3 +423,9 @@ body {
         transform: translateX(-100%);
     }
 }
+/*====================================== CLASES MODALES ============================================*/
+.AjustarModal {
+    margin-top: 70px;
+    background: linear-gradient( to right,#586d68 0%, #496763 5%, #37605d 10%, #1f5959 30%, #005156 40%, #004a54 50%, #004453 60%, #003d52 80%, #004453 100% );
+}
+

@@ -10,6 +10,6 @@ namespace Escuela_Sor_Maria.Models
         public List<IdentityRole>? roles { get; set; }
 
         //public TbUnionUser_Role User_Role { get; set; }
-        public List<tbPersona>? Profesores { get; set; }
+        public List<tbProfesores>? Profesores { get; set; }
     }
 }

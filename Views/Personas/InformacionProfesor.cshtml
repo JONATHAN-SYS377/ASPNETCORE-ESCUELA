@@ -1,0 +1,129 @@
+﻿@model  Escuela_Sor_Maria.Models.Profesor_Direccion
+
+@{
+    ViewData["Title"] = "InformacionProfesor";
+}
+
+
+<div class="container">
+    <h3>Datos Personales del Docente</h3>
+    <hr />
+    <div class="row justify-content-center">
+        <div class="col-md-12 ">
+            <form asp-action="CrearPersona">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="row">
+                    <div class="col-md-4 ">
+                        <div class="form-group mx-4 my-2">
+                            <label class="text-white">
+                                <strong> @Html.DisplayNameFor(model => model.Cedula):</strong>
+                            </label>
+                            <label class="text-white mx-3">
+                                @Html.DisplayFor(model => model.Cedula)
+                            </label>
+                        </div>
+                        <div class="form-group mx-4 my-2">
+                            <label class="text-white">
+                                <strong>  @Html.DisplayNameFor(model => model.Nombre):</strong>
+                            </label>
+                            <label class="text-white mx-3">
+                                @Html.DisplayFor(model => model.Nombre)
+                            </label>
+                        </div>
+                        <div class="form-group mx-4 my-2">
+                            <label class="text-white">
+                                <strong>  @Html.DisplayNameFor(model => model.Apellido1):</strong>
+                            </label>
+                            <label class="text-white mx-3">
+                                @Html.DisplayFor(model => model.Apellido1)
+                            </label>
+                        </div>
+                        <div class="form-group mx-4 my-2">
+                            <label class="text-white ">
+                                <strong>  @Html.DisplayNameFor(model => model.Apellido2):</strong>
+                            </label>
+                            <label class="text-white mx-3">
+                                @Html.DisplayFor(model => model.Apellido2)
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-md-4  ">
+                        <div class="form-group mx-4 my-2">
+                            <label class="text-white">
+                                <strong>  @Html.DisplayNameFor(model => model.FechaNacimiento):</strong>
+                            </label>
+                            <label class="text-white mx-3">
+                                @Html.DisplayFor(model => model.FechaNacimiento)
+                            </label>
+                        </div>
+                        <div class="form-group mx-4 my-2">
+                            <label class="text-white">
+                                <strong>  @Html.DisplayNameFor(model => model.Sexo):</strong>
+                            </label>
+                            <label class="text-white mx-3">
+                                @Html.DisplayFor(model => model.Sexo)
+                            </label>
+                        </div>
+                        <div class="form-group mx-4 my-0">
+                            <label class="text-white">
+                                <strong>  @Html.DisplayNameFor(model => model.Telefono):</strong>
+                            </label>
+                            <label class="text-white mx-3">
+                                @Html.DisplayFor(model => model.Telefono)
+                            </label>
+                        </div>
+                        <div class="form-group  mx-4 my-2">
+                            <label class="text-white">
+                                <strong>  @Html.DisplayNameFor(model => model.ProvinciaID):</strong>
+                            </label>
+                            <label class="text-white mx-3">
+                                @Html.DisplayFor(model => model.ProvinciaID)
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-md-4  ">
+                        <div class="form-group  mx-4 my-2">
+                            <label class="text-white">
+                                <strong>  @Html.DisplayNameFor(model => model.CantonID):</strong>
+                            </label>
+                            <label class="text-white mx-3">
+                                @Html.DisplayFor(model => model.CantonID)
+                            </label>
+                        </div>
+                        <div class="form-group  mx-4 my-2">
+                            <label class="text-white">
+                                <strong>  @Html.DisplayNameFor(model => model.DistritoID):</strong>
+                            </label>
+                            <label class="text-white mx-3">
+                                @Html.DisplayFor(model => model.DistritoID)
+                            </label>
+                        </div>
+                        <div class="form-group  mx-4 my-2">
+                            <label class="text-white">
+                                <strong>  @Html.DisplayNameFor(model => model.BarrioID):</strong>
+                            </label>
+                            <label class="text-white mx-3">
+                                @Html.DisplayFor(model => model.BarrioID)
+                            </label>
+                        </div>
+                        <div class="form-group mx-4 my-2">
+                            <label class="text-white">
+                                <strong>  @Html.DisplayNameFor(model => model.Direccion):</strong>
+                            </label>
+                            <label class="text-white mx-1">
+                                @Html.DisplayFor(model => model.Direccion)
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group my-4">
+                    <a class=" btn otorgar-boton p-1 mx-5" asp-action="ListaPersonas" asp-controller="Personas">Volver al Menu Anterior</a>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+

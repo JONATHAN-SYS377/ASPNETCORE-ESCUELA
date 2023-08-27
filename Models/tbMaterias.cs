@@ -10,7 +10,7 @@ namespace Escuela_Sor_Maria.Models
         public int CursoID { get; set; }
 
         [Key]
-        public int Id { get; set; }
+        public int IdMateria { get; set; }
 
         [Required]
         public string NombreMateria { get; set; }
@@ -18,15 +18,14 @@ namespace Escuela_Sor_Maria.Models
         public string Descripcion { get; set; }
 
         [Required]
-        [ForeignKey(nameof(Persona))]
+        [ForeignKey(nameof(Profesor))]
         public string ProfesorAsignado { get; set; }
 
         [Required]
         public int Estado { get; set; }
 
         public virtual tbCursos Curso { get; set; }
-        public virtual tbPersona Persona { get; set; }
-
+        public virtual tbProfesores Profesor { get; set; }
 
     }
 }

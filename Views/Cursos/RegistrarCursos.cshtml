@@ -1,0 +1,51 @@
+﻿@model Escuela_Sor_Maria.Models.tbCursos
+
+@{
+    ViewData["Title"] = "RegistrarCursos";
+}
+
+<div class="container">
+    <h3>Ingreso de Cursos</h3>
+    <hr />
+    <div class="row justify-content-center">
+        <div class="col-md-12 ">
+            <form asp-action="RegistrarCursos" method="post" class="row g-3 needs-validation" novalidate >
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="row">
+
+                    <div class="col-md-4 my-2">
+                        <label asp-for="NombreCursoo" class="control-label"></label>
+                        <input asp-for="NombreCursoo" class="form-control" required />
+                        <span asp-validation-for="NombreCursoo" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-8 my-2">
+                        <label asp-for="Descripcion" class="control-label"></label>
+                        <input asp-for="Descripcion" class="form-control" required />
+                        <span asp-validation-for="Descripcion" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-4 my-2">
+                        <label asp-for="Nivel" class="control-label"></label>
+                        <input asp-for="Nivel" class="form-control" required />
+                        <span asp-validation-for="Nivel" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-4 my-2">
+                        <label asp-for="Duracion" class="control-label"></label>
+                        <input asp-for="Duracion" class="form-control" required />
+                        <span asp-validation-for="Duracion" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <a class="btn otorgar-boton p-1 px-2 mx-2" asp-action="Index">Volver al Inicio</a>
+                    <input type="submit" value="Guardar" class="btn retornar-boton p-1 px-2 mx-3" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<div>
+   
+</div>
+

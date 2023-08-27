@@ -155,7 +155,7 @@ namespace Escuela_Sor_Maria.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("El usuario creó una nueva cuenta con contraseña.");
-                    return Redirect("/Account/Login");
+                    return LocalRedirect(returnUrl);
                     //await _userManager.AddToRoleAsync(user, Input.Role);
 
                     //var userId = await _userManager.GetUserIdAsync(user);

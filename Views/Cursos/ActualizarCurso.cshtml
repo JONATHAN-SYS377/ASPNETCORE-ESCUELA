@@ -1,0 +1,55 @@
+﻿@model Escuela_Sor_Maria.Models.tbCursos
+
+@{
+    ViewData["Title"] = "ActualizarCurso";
+}
+<div class="container">
+    <h3>Actualizar Curso</h3>
+    <hr />
+    <div class="row justify-content-center">
+        <div class="col-md-12 ">
+            <form asp-action="ActualizarCurso" method="post" class="row g-3 needs-validation" novalidate>
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="IdCurso" />
+                <div class="row">
+
+                    <div class="col-md-4 my-2">
+                        <label asp-for="NombreCursoo" class="control-label"></label>
+                        <input asp-for="NombreCursoo" class="form-control" required />
+                        <span asp-validation-for="NombreCursoo" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-8 my-2">
+                        <label asp-for="Descripcion" class="control-label"></label>
+                        <input asp-for="Descripcion" class="form-control" required />
+                        <span asp-validation-for="Descripcion" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-4 my-2">
+                        <label asp-for="Nivel" class="control-label"></label>
+                        <input asp-for="Nivel" class="form-control" required />
+                        <span asp-validation-for="Nivel" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-4 my-2">
+                        <label asp-for="Duracion" class="control-label"></label>
+                        <input asp-for="Duracion" class="form-control" required />
+                        <span asp-validation-for="Duracion" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-4 my-2">
+                        <label asp-for="Estado" class="control-label"></label>
+                        <div class="my-2">
+                            <label class="form-check-label "><input class="form-check-input mx-2" type="radio" asp-for="Estado" value="1" />Disponible</label>
+                            <label class="form-check-label "><input class="form-check-input mx-2" type="radio" asp-for="Estado" value="2" />Dejar de Impartir</label>
+                        </div>
+                        <span asp-validation-for="Estado" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <a class="btn otorgar-boton p-1 px-2 mx-2" asp-action="Index">Volver al Inicio</a>
+                    <input type="submit" value="Actualizar" class="btn retornar-boton p-1 px-2 mx-3" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+

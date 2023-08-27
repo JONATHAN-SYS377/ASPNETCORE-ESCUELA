@@ -1,0 +1,103 @@
+﻿@model IEnumerable<Escuela_Sor_Maria.Models.tbCursos>
+
+@{
+    ViewData["Title"] = "ListaCursos";
+}
+
+<div class="container-fluid">
+    <h1>Cursos Impartidos</h1>
+
+    <hr />
+
+    <div class="shadow-mj br-15 px-5 py-3 table-responsive">
+        <table class="table table-striped text-center text-white  ">
+            <thead>
+                <tr class="text-white">
+                    <th>
+                        Curso
+                    </th>
+                    <th>
+                        Descripcion
+                    </th>
+                    <th>
+                        Nivel
+                    </th>
+                    <th>
+                        Duracion
+                    </th>
+                    <th>
+                        Estado
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr class="text-white">
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NombreCursoo)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Descripcion)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Nivel)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Duracion)
+                        </td>
+                        @if (item.Estado == 1)
+                        {
+                            <td>
+                                Disponible
+                            </td>
+                            <td>
+                                <a class="btn editar-boton p-1 px-2 " asp-action="ActualizarCurso" asp-controller="Cursos" asp-route-id="@item.IdCurso">Actualizar</a>
+                                <button type="button" class="btn eliminar-boton p-1" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+                                        data-id="@item.IdCurso ">
+                                    Suspender Curso
+                                </button>
+                            </td>
+                        }
+                        else if (item.Estado == 2)
+                        {
+                            <td>
+                                No se Imparte
+                            </td>
+                            <td>
+                                <a class="btn editar-boton p-1 px-2 " asp-action="ActualizarCurso" asp-controller="Cursos" asp-route-id="@item.IdCurso">Actualizar</a>
+                            </td>
+                        }
+
+
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <a class="btn retornar-boton p-1 my-5 mx-2" asp-action="Index" asp-controller="Home">Volver al menu anterior</a>
+</div>
+
+<!-- Modal -->
+<div class="modal fade AjustarModal" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content shadow-mj2 bg-gradiente">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Suspender Curso</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                ¿Confirmar la Suspencion del Curso ?
+            </div>
+            <div class="modal-footer">
+                <form asp-action="Delete">
+                    <input type="hidden" name="Id" />
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-danger">Suspender</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
