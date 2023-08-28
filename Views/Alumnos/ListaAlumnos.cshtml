@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Escuela_Sor_Maria.Models.tbAlumnos>
+﻿@model IEnumerable<Escuela_Sor_Maria.Models.ViewModelEstudianteMatricula>
 
 @{
     ViewData["Title"] = "ListaAlumnos";
@@ -6,7 +6,7 @@
 
 
 <div class="container-fluid">
-    <h2>Alunos Registrados</h2>
+    <h2>Alumnos Registrados</h2>
     <hr />
     <div class="shadow-mj br-15 px-1 py-3 offser-12">
         <div class="table-responsive">
@@ -14,27 +14,29 @@
                 <thead>
                     <tr class="text-white text-center">
                         <th>
-                            @Html.DisplayNameFor(model => model.Nombre)
+                            @Html.DisplayNameFor(model => model.Alumno.Nombre)
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.Aoellido1)
+                            @Html.DisplayNameFor(model => model.Alumno.Aoellido1)
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.Apellido2)
+                            @Html.DisplayNameFor(model => model.Alumno.Apellido2)
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.FechaNacimiento)
+                            @Html.DisplayNameFor(model => model.Alumno.Edad)
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.Edad)
+                            @Html.DisplayNameFor(model => model.Alumno.Direccion)
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.Direccion)
+                            @Html.DisplayNameFor(model => model.Alumno.ContactoEmergencia)
+                        </th>
+                        <th>Condición
+
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.ContactoEmergencia)
+                           Cursos Matriculados
                         </th>
-                        <th>Condición</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -43,41 +45,54 @@
                     {
                         <tr class=" text-center text-white">
                             <td>
-                                @Html.DisplayFor(modelItem => item.Nombre)
+                                @Html.DisplayFor(modelItem => item.Alumno.Nombre)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.Aoellido1)
+                                @Html.DisplayFor(modelItem => item.Alumno.Aoellido1)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.Apellido2)
+                                @Html.DisplayFor(modelItem => item.Alumno.Apellido2)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.FechaNacimiento)
+                                @Html.DisplayFor(modelItem => item.Alumno.Edad)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.Edad)
+                                @Html.DisplayFor(modelItem => item.Alumno.Direccion)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.Direccion)
+                                @Html.DisplayFor(modelItem => item.Alumno.ContactoEmergencia)
                             </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.ContactoEmergencia)
-                            </td>
-                            @if (item.Estado == 1)
+                            @if (item.Alumno.Estado == 1)
                             {
                                 <td>
                                     Estudiante
                                 </td>
                             }
-                            else if (item.Estado == 2)
+                            else if (item.Alumno.Estado == 2)
                             {
                                 <td>
                                    Egrasado
                                 </td>
                             }
                             <td>
+                                @if (item.Matriculas.Count > 0)
+                                {
+                                     <ul>
+                                    @foreach (var matriculas in item.Matriculas)
+                                    {
+                                        <li>@matriculas.Cursos.NombreCursoo</li>
+                                    }
+                                    </ul>
+                                }
+                                else
+                                {
+                                    <p>No tiene matrículas</p>
+                                }
+                            </td>
+                            <td>
                                 @*<a asp-action="Edit" asp-route-id="@item.Cedula">Edit</a> |*@
-                                <a class="btn detalle-boton p-1 px-2" asp-action="Informacion" asp-route-id="@item.Cedula">Información</a> 
+                                <a class="btn otorgar-boton p-1 px-2 my-1" asp-action="Matricularse" asp-route-id="@item.Alumno.Cedula">Matricular</a>
+                                <a class="btn detalle-boton p-1 px-2" asp-action="Informacion" asp-route-id="@item.Alumno.Cedula">Información</a>
                                 @*<a asp-action="Delete" asp-route-id="@item.Cedula">Delete</a>*@
                             </td>
                            

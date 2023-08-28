@@ -69,7 +69,7 @@
                                 <strong>  @Html.DisplayNameFor(model => model.Edad):</strong>
                             </label>
                             <label class="text-white mx-3">
-                                @Html.DisplayFor(model => model.Edad)
+                                @Html.DisplayFor(model => model.Edad) años
                             </label>
                         </div>
                         <div class="col-md-3 my-2  ">
@@ -134,7 +134,8 @@
                             </label>
                         </div>
                         <hr />
-                        <div class="col-md-12 my-2 ">
+                        <p>Informacion del Padre o Madre</p>
+                        <div class="col-md-6 my-2 ">
                             <label class="text-white">
                                 <strong>  @Html.DisplayNameFor(model => model.CedulaEncargado):</strong>
                             </label>
@@ -158,7 +159,23 @@
                                 @Html.DisplayFor(model => model.ContactoEmergencia)
                             </label>
                         </div>
-
+                        <hr />
+                        <div class="col-md-6 my-2 ">
+                            @if (Model.CursosMatriculados.Count > 0)
+                            {
+                                <h4>Cursos Matriculados:</h4>
+                                <ul>
+                                    @foreach (var matricula in Model.CursosMatriculados)
+                                    {
+                                        <li>@matricula.Cursos.NombreCursoo</li>
+                                    }
+                                </ul>
+                            }
+                            else
+                            {
+                                <p>No tiene cursos matriculados.</p>
+                            }
+                        </div>
                     </div>
                 </form>
             </div>
@@ -169,15 +186,3 @@
         <a class="btn retornar-boton p-1 px-2 mx-4" asp-action="Actualizar" asp-route-id="@Model?.Cedula">Actualizar</a>
     </div>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-

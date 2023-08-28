@@ -53,11 +53,11 @@ namespace Escuela_Sor_Maria.Models
         public string Direccion { get; set; }
 
         
-        [Display(Name = "Cedula Padre o Madre")]
+        [Display(Name = "Cedula")]
         public string CedulaEncargado { get; set; }
 
         
-        [Display(Name = "Nombre Padre o Madre")]
+        [Display(Name = "Nombre Completo")]
         public string EncargadoLegal { get; set; }
 
         
@@ -66,5 +66,8 @@ namespace Escuela_Sor_Maria.Models
 
         
         public int Estado { get; set; }
+
+        [Display(Name = "Cursos Matriculados")]
+        public List<TbMatriculas> CursosMatriculados { get; set; }
     }
 }

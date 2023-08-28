@@ -5,6 +5,7 @@ namespace Escuela_Sor_Maria.Models
 {
     public class tbCalificaciones
     {
+        [Key]
         public int id { get; set; }
 
         [Required]

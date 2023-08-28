@@ -126,3 +126,16 @@ $('#staticBackdrop').on('show.bs.modal', function (event) {
         }, false)
     })
 })()
+
+$(document).ready(function () {
+    // Escuchar los cambios en los radios
+    $('input[type="radio"]').on('change', function () {
+        // Obtener todos los radios
+        var radios = $('input[type="radio"]');
+        // Verificar si al menos uno está seleccionado
+        var atLeastOneSelected = radios.filter(':checked').length > 0;
+
+        // Actualizar el campo de oculto para que cumpla con la validación del atributo "required"
+        $('[asp-for="CursoID"]').val(atLeastOneSelected ? "selected" : "");
+    });
+});

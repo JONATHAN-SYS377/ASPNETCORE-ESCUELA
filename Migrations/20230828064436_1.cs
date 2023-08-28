@@ -6,11 +6,37 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Escuela_Sor_Maria.Migrations
 {
     /// <inheritdoc />
-    public partial class Prueba : Migration
+    public partial class _1 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "Alumno_Ubicacion",
+                columns: table => new
+                {
+                    Cedula = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Nombre = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Aoellido1 = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Apellido2 = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Sexo = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    FechaNacimiento = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Edad = table.Column<int>(type: "int", nullable: false),
+                    ProvinciaID = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CantonID = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DistritoID = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    BarrioID = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Direccion = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CedulaEncargado = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    EncargadoLegal = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ContactoEmergencia = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Estado = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Alumno_Ubicacion", x => x.Cedula);
+                });
+
             migrationBuilder.CreateTable(
                 name: "AspNetRoles",
                 columns: table => new
@@ -51,6 +77,49 @@ namespace Escuela_Sor_Maria.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "tbAlumnos",
+                columns: table => new
+                {
+                    Cedula = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Nombre = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Aoellido1 = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Apellido2 = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Sexo = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    FechaNacimiento = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Edad = table.Column<int>(type: "int", nullable: false),
+                    ProvinciaID = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CantonID = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DistritoID = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    BarrioID = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Direccion = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CedulaEncargado = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    EncargadoLegal = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ContactoEmergencia = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Estado = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_tbAlumnos", x => x.Cedula);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "tbCursos",
+                columns: table => new
+                {
+                    IdCurso = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    NombreCursoo = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Descripcion = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Nivel = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Duracion = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Estado = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_tbCursos", x => x.IdCurso);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "tbPersona",
                 columns: table => new
                 {
@@ -59,13 +128,14 @@ namespace Escuela_Sor_Maria.Migrations
                     Apellido1 = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Apellido2 = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     FechaNacimiento = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Sexo = table.Column<int>(type: "int", nullable: false),
+                    Sexo = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Telefono = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ProvinciaID = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CantonID = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DistritoID = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     BarrioID = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Direccion = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Direccion = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Estado = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -191,6 +261,66 @@ namespace Escuela_Sor_Maria.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "tbMatriculas",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "int", nullable: false),
+                    CedulaID = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    CursoID = table.Column<int>(type: "int", nullable: false),
+                    Alumno_UbicacionCedula = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_tbMatriculas", x => x.id);
+                    table.ForeignKey(
+                        name: "FK_tbMatriculas_Alumno_Ubicacion_Alumno_UbicacionCedula",
+                        column: x => x.Alumno_UbicacionCedula,
+                        principalTable: "Alumno_Ubicacion",
+                        principalColumn: "Cedula");
+                    table.ForeignKey(
+                        name: "FK_tbMatriculas_tbAlumnos_CedulaID",
+                        column: x => x.CedulaID,
+                        principalTable: "tbAlumnos",
+                        principalColumn: "Cedula",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_tbMatriculas_tbCursos_CursoID",
+                        column: x => x.CursoID,
+                        principalTable: "tbCursos",
+                        principalColumn: "IdCurso",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "tbMaterias",
+                columns: table => new
+                {
+                    IdMateria = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CursoID = table.Column<int>(type: "int", nullable: false),
+                    NombreMateria = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Descripcion = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ProfesorAsignado = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Estado = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_tbMaterias", x => x.IdMateria);
+                    table.ForeignKey(
+                        name: "FK_tbMaterias_tbCursos_CursoID",
+                        column: x => x.CursoID,
+                        principalTable: "tbCursos",
+                        principalColumn: "IdCurso",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_tbMaterias_tbPersona_ProfesorAsignado",
+                        column: x => x.ProfesorAsignado,
+                        principalTable: "tbPersona",
+                        principalColumn: "Cedula",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "tbCanton",
                 columns: table => new
                 {
@@ -207,6 +337,34 @@ namespace Escuela_Sor_Maria.Migrations
                         column: x => x.tbProvinciaCod,
                         principalTable: "tbProvincia",
                         principalColumn: "Cod");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "tbCalificaciones",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CedulaEstudianteID = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    MateriaID = table.Column<int>(type: "int", nullable: false),
+                    FechaCalificacion = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    NotaObtenida = table.Column<float>(type: "real", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_tbCalificaciones", x => x.id);
+                    table.ForeignKey(
+                        name: "FK_tbCalificaciones_tbAlumnos_CedulaEstudianteID",
+                        column: x => x.CedulaEstudianteID,
+                        principalTable: "tbAlumnos",
+                        principalColumn: "Cedula",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_tbCalificaciones_tbMaterias_MateriaID",
+                        column: x => x.MateriaID,
+                        principalTable: "tbMaterias",
+                        principalColumn: "IdMateria",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -290,9 +448,44 @@ namespace Escuela_Sor_Maria.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_tbCalificaciones_CedulaEstudianteID",
+                table: "tbCalificaciones",
+                column: "CedulaEstudianteID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_tbCalificaciones_MateriaID",
+                table: "tbCalificaciones",
+                column: "MateriaID");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_tbCanton_tbProvinciaCod",
                 table: "tbCanton",
                 column: "tbProvinciaCod");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_tbMaterias_CursoID",
+                table: "tbMaterias",
+                column: "CursoID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_tbMaterias_ProfesorAsignado",
+                table: "tbMaterias",
+                column: "ProfesorAsignado");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_tbMatriculas_Alumno_UbicacionCedula",
+                table: "tbMatriculas",
+                column: "Alumno_UbicacionCedula");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_tbMatriculas_CedulaID",
+                table: "tbMatriculas",
+                column: "CedulaID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_tbMatriculas_CursoID",
+                table: "tbMatriculas",
+                column: "CursoID");
         }
 
         /// <inheritdoc />
@@ -317,7 +510,10 @@ namespace Escuela_Sor_Maria.Migrations
                 name: "tbBarrios");
 
             migrationBuilder.DropTable(
-                name: "tbPersona");
+                name: "tbCalificaciones");
+
+            migrationBuilder.DropTable(
+                name: "tbMatriculas");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
@@ -329,7 +525,22 @@ namespace Escuela_Sor_Maria.Migrations
                 name: "tbDistrito");
 
             migrationBuilder.DropTable(
+                name: "tbMaterias");
+
+            migrationBuilder.DropTable(
+                name: "Alumno_Ubicacion");
+
+            migrationBuilder.DropTable(
+                name: "tbAlumnos");
+
+            migrationBuilder.DropTable(
                 name: "tbCanton");
+
+            migrationBuilder.DropTable(
+                name: "tbCursos");
+
+            migrationBuilder.DropTable(
+                name: "tbPersona");
 
             migrationBuilder.DropTable(
                 name: "tbProvincia");

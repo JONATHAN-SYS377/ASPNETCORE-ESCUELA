@@ -22,8 +22,8 @@ namespace Escuela_Sor_Maria.Data
         public DbSet<tbAlumnos> tbAlumnos {get; set;} 
         public DbSet<tbCursos> tbCursos {get; set;} 
         public DbSet<tbMaterias> tbMaterias {get; set;} 
-        public DbSet<tbCalificaciones> tbCalificaciones
-        {get; set;} 
+        public DbSet<tbCalificaciones> tbCalificaciones{get; set;} 
+        public DbSet<TbMatriculas> tbMatriculas { get; set;}    
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -50,6 +50,12 @@ namespace Escuela_Sor_Maria.Data
                 .HasOne(b => b.Distrito)
                 .WithMany(d => d.Barrios)
                 .HasForeignKey(b => new { b.ProvinciaID, b.CantonID, b.DistritoID });
+            
+            modelBuilder.Entity<TbMatriculas>()
+              .Property(m => m.id)
+                 .ValueGeneratedNever(); // Esto deshabilita la generación automática de valores
+
+
         }
 
         public DbSet<Escuela_Sor_Maria.Models.Alumno_Ubicacion> Alumno_Ubicacion { get; set; } = default!;

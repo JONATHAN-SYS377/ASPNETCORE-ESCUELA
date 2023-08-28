@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Escuela_Sor_Maria.Data;
 using Escuela_Sor_Maria.Models;
+using Microsoft.VisualBasic;
 
 namespace Escuela_Sor_Maria.Controllers
 {
@@ -19,12 +20,58 @@ namespace Escuela_Sor_Maria.Controllers
             _context = context;
         }
 
+
+
         // GET: Alumnos
         public async Task<IActionResult> ListaAlumnos()
         {
-              return _context.tbAlumnos != null ? 
-                          View(await _context.tbAlumnos.ToListAsync()) :
-                          Problem("Entity set 'ApplicationDbContext.tbAlumnos'  is null.");
+            var alumnosConMatriculas = await _context.tbAlumnos.ToListAsync();
+
+            var alumnosViewModel = new List<ViewModelEstudianteMatricula>();
+
+            foreach (var alumno in alumnosConMatriculas)
+            {
+                var matriculas = await _context.tbMatriculas
+                    .Where(matricula => matricula.CedulaID == alumno.Cedula)
+                    .ToListAsync();
+
+                foreach (var matricula in matriculas)
+                {
+                    matricula.Cursos = await _context.tbCursos
+                        .FirstOrDefaultAsync(curso => curso.IdCurso == matricula.CursoID);
+                }
+
+                var alumnoViewModel = new ViewModelEstudianteMatricula
+                {
+                    Alumno = alumno,
+                    Matriculas = matriculas
+                };
+
+                alumnosViewModel.Add(alumnoViewModel);
+            }
+
+            return View(alumnosViewModel);
+            //var alumnosConMatriculas = await _context.tbAlumnos.ToListAsync();
+
+            //var alumnosViewModel = new List<ViewModelEstudianteMatricula>();
+
+            //foreach (var alumno in alumnosConMatriculas)
+            //{
+            //    var matriculas = await _context.tbMatriculas
+            //.Where(matricula => matricula.CedulaID == alumno.Cedula)
+            //.Include(matricula => matricula.CursoID) // Incluir el curso en la unión
+            //.ToListAsync(); ;
+
+            //    var alumnoViewModel = new ViewModelEstudianteMatricula
+            //    {
+            //        Alumno = alumno,
+            //        Matriculas = matriculas
+            //    };
+
+            //    alumnosViewModel.Add(alumnoViewModel);
+            //}
+
+            //return View(alumnosViewModel);
         }
 
 
@@ -50,7 +97,7 @@ namespace Escuela_Sor_Maria.Controllers
                 Aoellido1 = p.Aoellido1,
                 Apellido2 = p.Apellido2,
                 Sexo = p.Sexo,
-                FechaNacimiento =  p.FechaNacimiento,
+                FechaNacimiento = p.FechaNacimiento,
                 Edad = p.Edad,
                 ProvinciaID = Metodos.Metodos.ObtenerNombreProvincia(provincias, p.ProvinciaID),
                 CantonID = Metodos.Metodos.ObtenerNombreCanton(cantones, p.CantonID, p.ProvinciaID),
@@ -61,8 +108,17 @@ namespace Escuela_Sor_Maria.Controllers
                 CedulaEncargado = p.CedulaEncargado,
                 ContactoEmergencia = p.ContactoEmergencia,
                 EncargadoLegal = p.EncargadoLegal,
-            })
-            .FirstOrDefaultAsync();
+                CursosMatriculados = _context.tbMatriculas
+                    .Where(matricula => matricula.CedulaID == p.Cedula)
+                    .ToList()
+                    })
+                    .FirstOrDefaultAsync();
+
+                 foreach (var matricula in personasConUbicaciones.CursosMatriculados)
+                 {
+                     matricula.Cursos = await _context.tbCursos
+                            .FirstOrDefaultAsync(curso => curso.IdCurso == matricula.CursoID);
+                  }
 
             return View(personasConUbicaciones);
         }
@@ -78,7 +134,7 @@ namespace Escuela_Sor_Maria.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> RegistrarAlumno([Bind("Cedula,Nombre,Aoellido1,Apellido2,Sexo,FechaNacimiento,Edad,ProvinciaID,CantonID,DistritoID,BarrioID,Direccion,CedulaEncargado,EncargadoLegal,ContactoEmergencia")] tbAlumnos tbAlumnos)
+        public async Task<IActionResult> RegistrarAlumno(tbAlumnos tbAlumnos)
         {
             if (ModelState.IsValid)
             {
@@ -91,7 +147,7 @@ namespace Escuela_Sor_Maria.Controllers
         }
 
         // GET: Alumnos/Edit/5
-        public async Task<IActionResult> Edit(string id)
+        public async Task<IActionResult> Actualizar(string id)
         {
             if (id == null || _context.tbAlumnos == null)
             {
@@ -111,7 +167,7 @@ namespace Escuela_Sor_Maria.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("Cedula,Nombre,Aoellido1,Apellido2,Sexo,FechaNacimiento,Edad,ProvinciaID,CantonID,DistritoID,BarrioID,Direccion,CedulaEncargado,EncargadoLegal,ContactoEmergencia")] tbAlumnos tbAlumnos)
+        public async Task<IActionResult> Actualizar(string id, tbAlumnos tbAlumnos)
         {
             if (id != tbAlumnos.Cedula)
             {
@@ -136,7 +192,7 @@ namespace Escuela_Sor_Maria.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(ListaAlumnos));
             }
             return View(tbAlumnos);
         }
@@ -173,14 +229,96 @@ namespace Escuela_Sor_Maria.Controllers
             {
                 _context.tbAlumnos.Remove(tbAlumnos);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
+
+        public IActionResult Matricularse(string id)
+        {
+            if (id == null || _context.tbAlumnos == null)
+            {
+                return NotFound();
+            }
+            ViewData["CursoID"] = new SelectList(_context.tbCursos.Where(C => C.Estado == 1), "IdCurso", "NombreCursoo");
+
+            var estudiantes = _context.tbAlumnos
+                .Where(a => a.Cedula == id)
+                .Select(a => new
+                {
+                    Value = a.Cedula,
+                    Text = $"{a.Nombre} {a.Aoellido1} {a.Apellido2}"
+                })
+                .ToList();
+
+            ViewData["Estudiante"] = new SelectList(estudiantes, "Value", "Text");
+            return View();
+        }
+
+        // POST: TbMatriculas/Create
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Matricularse(TbMatriculas tbMatriculas)
+        {
+            if (!ModelState.IsValid)
+            {
+                var registroAnterior = await _context.tbMatriculas
+                        .OrderByDescending(m => m.id)
+                      .FirstOrDefaultAsync();
+                if (registroAnterior != null)
+                {
+                    int ultimoId = registroAnterior.id+1;
+                    tbMatriculas.id = ultimoId;
+                    _context.Add(tbMatriculas);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(ListaAlumnos));
+                }
+                else
+                {
+                    int ultimoId = 1;
+                    tbMatriculas.id = ultimoId;
+                    _context.Add(tbMatriculas);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(ListaAlumnos));
+                }
+            }
+            ViewData["CursoID"] = new SelectList(_context.tbCursos.Where(C => C.Estado == 1), "IdCurso", "NombreCursoo");
+
+            var estudiantes = _context.tbAlumnos
+                .Where(a => a.Cedula == tbMatriculas.CedulaID)
+                .Select(a => new
+                {
+                    Value = a.Cedula,
+                    Text = $"{a.Nombre} {a.Aoellido1} {a.Apellido2}"
+                })
+                .ToList();
+
+            ViewData["Estudiante"] = new SelectList(estudiantes, "Value", "Text");
+            return View(tbMatriculas);
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         private bool tbAlumnosExists(string id)
         {
-          return (_context.tbAlumnos?.Any(e => e.Cedula == id)).GetValueOrDefault();
+            return (_context.tbAlumnos?.Any(e => e.Cedula == id)).GetValueOrDefault();
         }
     }
 }

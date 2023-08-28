@@ -22,6 +22,99 @@ namespace Escuela_Sor_Maria.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("Escuela_Sor_Maria.Models.Alumno_Ubicacion", b =>
+                {
+                    b.Property<string>("Cedula")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Aoellido1")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Apellido2")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("BarrioID")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CantonID")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CedulaEncargado")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ContactoEmergencia")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Direccion")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DistritoID")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Edad")
+                        .HasColumnType("int");
+
+                    b.Property<string>("EncargadoLegal")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Estado")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("FechaNacimiento")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ProvinciaID")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Sexo")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Cedula");
+
+                    b.ToTable("Alumno_Ubicacion");
+                });
+
+            modelBuilder.Entity("Escuela_Sor_Maria.Models.TbMatriculas", b =>
+                {
+                    b.Property<int>("id")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Alumno_UbicacionCedula")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("CedulaID")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("CursoID")
+                        .HasColumnType("int");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("Alumno_UbicacionCedula");
+
+                    b.HasIndex("CedulaID");
+
+                    b.HasIndex("CursoID");
+
+                    b.ToTable("tbMatriculas");
+                });
+
             modelBuilder.Entity("Escuela_Sor_Maria.Models.tbAlumnos", b =>
                 {
                     b.Property<string>("Cedula")
@@ -528,6 +621,29 @@ namespace Escuela_Sor_Maria.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("Escuela_Sor_Maria.Models.TbMatriculas", b =>
+                {
+                    b.HasOne("Escuela_Sor_Maria.Models.Alumno_Ubicacion", null)
+                        .WithMany("CursosMatriculados")
+                        .HasForeignKey("Alumno_UbicacionCedula");
+
+                    b.HasOne("Escuela_Sor_Maria.Models.tbAlumnos", "Estudiante")
+                        .WithMany()
+                        .HasForeignKey("CedulaID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Escuela_Sor_Maria.Models.tbCursos", "Cursos")
+                        .WithMany()
+                        .HasForeignKey("CursoID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Cursos");
+
+                    b.Navigation("Estudiante");
+                });
+
             modelBuilder.Entity("Escuela_Sor_Maria.Models.tbBarrios", b =>
                 {
                     b.HasOne("Escuela_Sor_Maria.Models.tbDistrito", "Distrito")
@@ -644,6 +760,11 @@ namespace Escuela_Sor_Maria.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Escuela_Sor_Maria.Models.Alumno_Ubicacion", b =>
+                {
+                    b.Navigation("CursosMatriculados");
                 });
 
             modelBuilder.Entity("Escuela_Sor_Maria.Models.tbCanton", b =>

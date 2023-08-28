@@ -24,9 +24,7 @@
                 Estudiantes
             </a>
             <ul class="dropdown-menu bg-gradiente">
-                <li><a class="dropdown-item text-white" href="#">Matricula</a></li>
-                <li><a class="dropdown-item text-white" href="#">Actualizar Información del Estudiante</a></li>
-                <li><a class="nav-link text-white" asp-area="" asp-action=" " asp-controller=" ">Informacion de Notas</a></li>
+                <li><a class="dropdown-item text-white" asp-action="ListaAlumnos" asp-controller="Alumnos">Matricular</a></li>
             </ul>
         </li>
 
@@ -47,8 +45,8 @@
             </a>
             <ul class="dropdown-menu bg-gradiente">
                 <li><a class="dropdown-item text-white" asp-area="" asp-action="CrearPersona" asp-controller="Personas">Profesores</a></li>
-                <li><a class="dropdown-item text-white" asp-area="" asp-action="RegistrarAlumno" asp-controller="Alumnos">Alumnos</a></li>
-                <li><a class="dropdown-item text-white" asp-area="" asp-action="RegistrarCursos" asp-controller="Cursos">Cursos</a></li>
+               <li><a class="dropdown-item text-white" asp-area="" asp-action="RegistrarAlumno" asp-controller="Alumnos">Alumnos</a></li>
+              <li><a class="dropdown-item text-white" asp-area="" asp-action="RegistrarCursos" asp-controller="Cursos">Cursos</a></li>
                 <li><a class="dropdown-item text-white" asp-area="" asp-action="RegistrarMateria" asp-controller="Materias">Materias</a></li>
                 <li><a class="dropdown-item text-white" asp-area="" asp-action="ListaRoles" asp-controller="Admin">Permisos</a></li>
             </ul>
@@ -62,8 +60,8 @@
                 <li><a class="dropdown-item text-white" asp-action="ListaPersonas" asp-controller="Personas">Profesores</a></li>
                 <li><a class="dropdown-item text-white" asp-area="" asp-action="ListaCursos" asp-controller="Cursos">Cursos</a></li>
                 <li><a class="dropdown-item text-white" asp-area="" asp-action="ListaMaterias" asp-controller="Materias">Materias</a></li>
-                <li><a class="dropdown-item text-white" asp-area="" asp-action="ListaAlumnos" asp-controller="Alumnos">Alumnos</a></li>
-            </ul>
+@*                <li><a class="dropdown-item text-white" asp-area="" asp-action="ListaAlumnos" asp-controller="Alumnos">Alumnos</a></li>
+*@            </ul>
         </li>
         <li class="nav-item mx-2 EsoacioNavbar">
             <a class="nav-link text-white" asp-area="" asp-controller="" asp-action=""></a>
