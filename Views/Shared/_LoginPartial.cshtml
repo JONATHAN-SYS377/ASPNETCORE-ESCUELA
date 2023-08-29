@@ -2,70 +2,118 @@
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
 
-<ul class="navbar-nav">
+@functions {
+    async Task<string> GetCedulaAsync(string userName)
+    {
+        var user = await UserManager.FindByNameAsync(userName);
+        return user?.Email ?? "No hay datos registrados";
+    }
+    
+}
+
+<ul class="navbar-nav flex-grow-1">
     @if (SignInManager.IsSignedIn(User))
     {
+        #region Inicio
         <li class="nav-item ">
             <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Index">Inicio</a>
         </li>
+        #endregion
 
+        <!---------------------------- Menu Informacion y ver registros --------------------------------->
         <li class="nav-item dropdown text-white ">
-            <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Información
-            </a>
-            <ul class="dropdown-menu bg-gradiente">
-                <li><a class="nav-link text-white" asp-area="" asp-action="ListaPublica" asp-controller="Personas">Profesores</a></li>
-                <li><a class="dropdown-item text-white" href="#">Cursos Disponibles</a></li>
-            </ul>
-        </li>
+            @if (User.IsInRole("SuperUsuario") || User.IsInRole("Administrador") || User.IsInRole("Profesor"))
+            {
+                <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Ver Registros
+                </a>
+                <ul class="dropdown-menu bg-gradiente">
+                    <li><a class="dropdown-item text-black" asp-action="ListaPersonas" asp-controller="Personas">Profesores</a></li>
+                    <li><a class="dropdown-item text-black" asp-action="ListaAlumnos" asp-controller="Alumnos">Estudiantes</a></li>
+                    <li><a class="dropdown-item text-black" asp-area="" asp-action="ListaCursos" asp-controller="Cursos">Cursos</a></li>
+                    <li><a class="dropdown-item text-black" asp-area="" asp-action="ListaMaterias" asp-controller="Materias">Materias</a></li>
+                </ul>
+            }
+            else
+            {
+                <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Información
+                </a>
+                <ul class="dropdown-menu bg-gradiente">
+                    <li><a class="dropdown-item text-black" asp-action="ListaPersonas" asp-controller="Personas">Profesores</a></li>
+                    <li><a class="dropdown-item text-black" asp-area="" asp-action="ListaCursos" asp-controller="Cursos">Cursos</a></li>
+                    <li><a class="dropdown-item text-black" asp-area="" asp-action="ListaMaterias" asp-controller="Materias">Materias</a></li>
+                </ul>
+            }
 
-        <li class="nav-item dropdown text-white ">
-            <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Estudiantes
-            </a>
-            <ul class="dropdown-menu bg-gradiente">
-                <li><a class="dropdown-item text-white" asp-action="ListaAlumnos" asp-controller="Alumnos">Matricular</a></li>
-            </ul>
         </li>
+        <!--------------------------------------------------------------------------------------------------->
+        <!--------------------------------- Menu Estudiante Ver Notas ----------------------------------->
+        @if (User.IsInRole("Visitante"))
+        {
+            <li class="nav-item dropdown text-white ">
+                <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Estudiantes
+                    @await GetCedulaAsync(User.Identity?.Name)
+                </a>
+                <ul class="dropdown-menu bg-gradiente">
 
-        <li class="nav-item dropdown text-white ">
-            <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Calificaciones
-            </a>
-            <ul class="dropdown-menu bg-gradiente">
-                <li><a class="dropdown-item text-white" href="#">Ingresar Notas</a></li>
-                @*<li><a class="dropdown-item text-white" href="#">Actualizar Información del Estudiante</a></li>
-            <li><a class="nav-link text-white" asp-area="" asp-action="ListaPublica" asp-controller="Personas">Informacion de Notas</a></li>*@
-            </ul>
-        </li>
+                    <a class="dropdown-item text-black " asp-action="Informacion" asp-controller="Alumnos" asp-route-id="@await GetCedulaAsync(User.Identity?.Name)">Información</a>
+                    <a class="dropdown-item  text-black" asp-action="ListaNotas" asp-controller="Calificaciones" asp-route-id="@await GetCedulaAsync(User.Identity?.Name)">Ver Notas</a>
+                    <a class="dropdown-item  text-black" asp-action="PdfNotas" asp-controller="Calificaciones" asp-route-id="@await GetCedulaAsync(User.Identity?.Name)">Imprimir Certificación de Notas</a>
+                </ul>
+            </li>
+        }
+        <!--------------------------------------------------------------------------------------------------->
+        <!---------------------------------  Menu Registro de Notas -------------------------------------->
+        @if (User.IsInRole("SuperUsuario") || User.IsInRole("Administrador") || User.IsInRole("Profesor"))
+        {
+            <li class="nav-item dropdown text-white ">
+                <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Calificaciones
+                </a>
+                <ul class="dropdown-menu bg-gradiente">
+                    <li><a class="dropdown-item text-black" asp-action="ListaMatriculados" asp-controller="Calificaciones">Ingresar Notas</a></li>
+                </ul>
+            </li>
+        }
+        <!--------------------------------------------------------------------------------------------------->
+        <!--------------------------------- ----Menu Registros -------------------------------------------->
+        @if (User.IsInRole("SuperUsuario") || User.IsInRole("Administrador"))
+        {
+            <li class="nav-item dropdown text-white ">
+                <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Registrar
+                </a>
+                <ul class="dropdown-menu bg-gradiente">
+                    <li><a class="dropdown-item ext-black" asp-area="" asp-action="CrearPersona" asp-controller="Personas">Profesores</a></li>
+                    <li><a class="dropdown-item text-black" asp-area="" asp-action="RegistrarAlumno" asp-controller="Alumnos">Alumnos</a></li>
+                    <li><a class="dropdown-item text-black" asp-area="" asp-action="RegistrarCursos" asp-controller="Cursos">Cursos</a></li>
+                    <li><a class="dropdown-item text-black" asp-area="" asp-action="RegistrarMateria" asp-controller="Materias">Materias</a></li>
+                    <li><a class="dropdown-item text-black" asp-area="" asp-action="ListaRoles" asp-controller="Admin">Permisos</a></li>
+                </ul>
+            </li>
+        }
+        <!--------------------------------------------------------------------------------------------------->
+        <!--------------------------------- ----Menu Reportes -------------------------------------------->
+        @if (User.IsInRole("SuperUsuario") || User.IsInRole("Administrador") || User.IsInRole("Profesor"))
+        {
+            <li class="nav-item dropdown text-white ">
+                <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Reportes
+                </a>
+                <ul class="dropdown-menu bg-gradiente">
+                    <li><a class="dropdown-item text-black" asp-area="" asp-action="PdfNotas" asp-controller="Calificaciones">Profesores</a></li>
+                </ul>
+            </li>
+        }
 
-        <li class="nav-item dropdown text-white ">
-            <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Registrar
-            </a>
-            <ul class="dropdown-menu bg-gradiente">
-                <li><a class="dropdown-item text-white" asp-area="" asp-action="CrearPersona" asp-controller="Personas">Profesores</a></li>
-               <li><a class="dropdown-item text-white" asp-area="" asp-action="RegistrarAlumno" asp-controller="Alumnos">Alumnos</a></li>
-              <li><a class="dropdown-item text-white" asp-area="" asp-action="RegistrarCursos" asp-controller="Cursos">Cursos</a></li>
-                <li><a class="dropdown-item text-white" asp-area="" asp-action="RegistrarMateria" asp-controller="Materias">Materias</a></li>
-                <li><a class="dropdown-item text-white" asp-area="" asp-action="ListaRoles" asp-controller="Admin">Permisos</a></li>
-            </ul>
-        </li>
 
-        <li class="nav-item dropdown text-white ">
-            <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Ver
-            </a>
-            <ul class="dropdown-menu bg-gradiente">
-                <li><a class="dropdown-item text-white" asp-action="ListaPersonas" asp-controller="Personas">Profesores</a></li>
-                <li><a class="dropdown-item text-white" asp-area="" asp-action="ListaCursos" asp-controller="Cursos">Cursos</a></li>
-                <li><a class="dropdown-item text-white" asp-area="" asp-action="ListaMaterias" asp-controller="Materias">Materias</a></li>
-@*                <li><a class="dropdown-item text-white" asp-area="" asp-action="ListaAlumnos" asp-controller="Alumnos">Alumnos</a></li>
-*@            </ul>
-        </li>
-        <li class="nav-item mx-2 EsoacioNavbar">
-            <a class="nav-link text-white" asp-area="" asp-controller="" asp-action=""></a>
-        </li>
+    }
+</ul>
+<ul class="navbar-nav">
+    @if (SignInManager.IsSignedIn(User))
+    {
         <li class="nav-item mx-2 d-flex flex-nowrap">
             <a class="nav-link text-white" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity?.Name!</a>
         </li>
@@ -74,20 +122,6 @@
             <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
                 <button type="submit" class="nav-link btn  btn-logout text-white">Logout</button>
             </form>
-        </li>
-
-    }
-    else
-    {
-
-        @*<li class="nav-item">
-    <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Register</a>
-    </li>
-    <li class="nav-item">
-    <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Login</a>
-    </li>*@
-        <li class="nav-item mx-5">
-            <a class="nav-link text-white" asp-area="" asp-action="ListaPublica" asp-controller="Personas">Profesores</a>
         </li>
     }
 </ul>

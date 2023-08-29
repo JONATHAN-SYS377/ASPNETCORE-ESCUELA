@@ -1,0 +1,64 @@
+﻿@model Escuela_Sor_Maria.Models.tbCalificaciones
+
+@{
+    ViewData["Title"] = "RegistrarNota";
+}
+
+<div class="container">
+    <h3>Actualizar nota al estudiante</h3>
+    <hr />
+    <div class="row justify-content-center">
+        <div class="col-md-12 ">
+            <form asp-action="ActualizarNota" class="row g-3 needs-validation" novalidate>
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="row">
+                    <div class="col-md-3 my-2">
+                        <label asp-for="CedulaEstudianteID" class="control-label"></label>
+                        <select asp-for="CedulaEstudianteID" class="form-select br-10 " asp-items="ViewBag.Estudiante" required></select>
+                    </div>
+                    <div class="col-md-12">
+                        <label asp-for="MateriaID " class="control-label my-2"> <h3>Materia a modificar la nota  <h5>'No seleccionable'</h5></h3></label>
+                        <div class="row">
+                            <div class="validation-group">
+                                <div class="row">
+                                    @foreach (var item in ViewBag.MateriaID)
+                                    {
+                                        <div class="form-check  col-md-3 my-2" >
+
+                                            <input class="form-check-input" type="radio" asp-for="MateriaID" value="@item.Value" disabled="disabled" required>
+                                            <label class="form-check-label" for="@("radio_" + item.Value)">
+                                                @item.Text
+                                            </label>
+
+                                        </div>
+                                    }
+                                </div>
+                                <!-- Agrega un campo de oculto para capturar la validación del radio -->
+                                <input type="hidden" asp-for="MateriaID" />
+                                <div class="invalid-feedback">Selecciona al menos un curso.</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 my-3">
+                        <label asp-for="FechaCalificacion" class="control-label"></label>
+                        <input type="date" asp-for="FechaCalificacion" class="form-control br-10 w-75" required />
+                        <span asp-validation-for="FechaCalificacion" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-3 my-3" s>
+                        <label asp-for="NotaObtenida" class="control-label"></label>
+                        <input type="number" asp-for="NotaObtenida" class="br-10 w-50 form-control @Html.Raw(ViewData["ValidationClass"])"  required />
+                        <span asp-validation-for="NotaObtenida" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <a class="btn otorgar-boton p-1 px2 mx-2" asp-action="ListaMatriculados" asp-controller="Calificaciones">Volver a la lista</a>
+                    <input type="submit" value="Registrar Nota" class="btn retornar-boton p-1 px-2 mx-2" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div>
+    </div>
+</div>
+

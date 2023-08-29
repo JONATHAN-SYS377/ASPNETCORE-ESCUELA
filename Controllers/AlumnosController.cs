@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Escuela_Sor_Maria.Data;
 using Escuela_Sor_Maria.Models;
 using Microsoft.VisualBasic;
+using Microsoft.AspNetCore.Identity;
 
 namespace Escuela_Sor_Maria.Controllers
 {
@@ -79,7 +80,7 @@ namespace Escuela_Sor_Maria.Controllers
         // GET: Alumnos/Details/5
         public async Task<IActionResult> Informacion(string id)
         {
-            if (id == null || _context.tbPersona == null)
+            if (id == null || _context.tbAlumnos == null)
             {
                 return NotFound();
             }
@@ -113,13 +114,16 @@ namespace Escuela_Sor_Maria.Controllers
                     .ToList()
                     })
                     .FirstOrDefaultAsync();
-
-                 foreach (var matricula in personasConUbicaciones.CursosMatriculados)
+            if (personasConUbicaciones == null)
+            {
+                return View();
+            }
+            foreach (var matricula in personasConUbicaciones.CursosMatriculados)
                  {
                      matricula.Cursos = await _context.tbCursos
                             .FirstOrDefaultAsync(curso => curso.IdCurso == matricula.CursoID);
                   }
-
+           
             return View(personasConUbicaciones);
         }
 
@@ -298,9 +302,12 @@ namespace Escuela_Sor_Maria.Controllers
             return View(tbMatriculas);
         }
 
+        public IActionResult Modal()
+        {
+            return View();
+        }
 
-
-
+      
 
 
 

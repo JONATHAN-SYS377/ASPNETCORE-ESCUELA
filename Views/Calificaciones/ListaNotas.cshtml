@@ -1,0 +1,78 @@
+﻿@model IEnumerable<Escuela_Sor_Maria.Models.tbCalificaciones>
+
+@{
+    ViewData["Title"] = "ListaNotas";
+}
+
+<div class="container">
+    <h2>Notas del Estudiante</h2>
+    <hr />
+   <h3> @Model.FirstOrDefault()?.Estudiante.Nombre @Model.FirstOrDefault()?.Estudiante.Aoellido1 @Model.FirstOrDefault()?.Estudiante.Apellido2</h3>
+   <div class="shadow-mj br-15 px-5 py-3 table-responsive">
+        <table class="table table-striped table text-center text-white  ">
+            <thead>
+                <tr class="text-white text-center">
+                    <th>
+                        @Html.DisplayNameFor(model => model.id)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Estudiante.Cedula)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FechaCalificacion)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Materia)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.NotaObtenida)
+                    </th>
+                    @if (User.IsInRole("SuperUsuario") || User.IsInRole("Administrador") || User.IsInRole("Profesor"))
+                    {
+                        <th></th>
+                    }
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr class="text-white">
+                        <td>
+                            @Html.DisplayFor(modelItem => item.id)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Estudiante.Cedula)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FechaCalificacion)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Materia.NombreMateria)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NotaObtenida)
+                        </td>
+                        @if (User.IsInRole("SuperUsuario") || User.IsInRole("Administrador") || User.IsInRole("Profesor"))
+                        {
+                            <td>
+                                <a class="btn editar-boton p-1 px-2" asp-action="ActualizarNota" asp-controller="Calificaciones" asp-route-id="@item.id">Modificar Nota</a>
+                            </td>
+                        }
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <a asp-action="PdfNotas" asp-controller="Calificaciones" asp-route-id="@Model.FirstOrDefault()?.Estudiante.Cedula" class="btn retornar-boton  p-1 px-2 my-2">Imprimir Certificación de Notas</a>
+
+    </div>
+    @if (User.IsInRole("SuperUsuario") || User.IsInRole("Administrador") || User.IsInRole("Profesor"))
+    {
+@*        <a asp-action="PdfNotas" asp-controller="Calificaciones" asp-route-id ="@Model." class="btn retornar-boton  p-1 px-2 my-5">Imprimir</a>
+*@        <a asp-action="ListaMatriculados" asp-controller="Calificaciones" class="btn retornar-boton  p-1 px-2 my-5">Volver a la lista anterior</a>
+    }
+    else if (User.IsInRole("Visitante"))
+    {
+      
+        <a asp-action="Index" asp-controller="Home" class="btn retornar-boton  p-1 px-2 my-5">Volver a la lista anterior</a>
+    }
+</div>

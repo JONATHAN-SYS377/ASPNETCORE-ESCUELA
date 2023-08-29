@@ -13,176 +13,191 @@
                 <form asp-action="CrearPersona" class="row g-3">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <div class="row">
-
-                        <div class="col-md-3 my-2 ">
-                            <label class="text-white">
-                                <strong> @Html.DisplayNameFor(model => model.Cedula):</strong>
-                            </label>
-                            <label class="text-white  ">
-                                @Html.DisplayFor(model => model.Cedula)
-                            </label>
-                        </div>
-                        <div class="col-md-3 my-2 ">
-                            <label class="text-white">
-                                <strong>  @Html.DisplayNameFor(model => model.Nombre):</strong>
-                            </label>
-                            <label class="text-white mx-3">
-                                @Html.DisplayFor(model => model.Nombre)
-                            </label>
-                        </div>
-                        <div class="col-md-3 my-2  ">
-                            <label class="text-white">
-                                <strong>  @Html.DisplayNameFor(model => model.Aoellido1):</strong>
-                            </label>
-                            <label class="text-white mx-3">
-                                @Html.DisplayFor(model => model.Aoellido1)
-                            </label>
-                        </div>
-                        <div class="col-md-3 my-2  ">
-                            <label class="text-white ">
-                                <strong>  @Html.DisplayNameFor(model => model.Apellido2):</strong>
-                            </label>
-                            <label class="text-white mx-3">
-                                @Html.DisplayFor(model => model.Apellido2)
-                            </label>
-                        </div>
+                        @if (Model == null)
+                        {
+                            <h2 class="text-center my-5">Este Usuario no se encuentra registrado como estudiante</h2>
+                        }
+                        else
+                        {
 
 
-                        <div class="col-md-3 my-2 ">
-                            <label class="text-white">
-                                <strong>  @Html.DisplayNameFor(model => model.FechaNacimiento):</strong>
-                            </label>
-                            <label class="text-white  ">
-                                @Html.DisplayFor(model => model.FechaNacimiento)
-                            </label>
-                        </div>
-                        <div class="col-md-3 my-2 ">
-                            <label class="text-white">
-                                <strong>  @Html.DisplayNameFor(model => model.Sexo):</strong>
-                            </label>
-                            <label class="text-white mx-3">
-                                @Html.DisplayFor(model => model.Sexo)
-                            </label>
-                        </div>
-                        <div class="col-md-3 my-2  ">
-                            <label class="text-white">
-                                <strong>  @Html.DisplayNameFor(model => model.Edad):</strong>
-                            </label>
-                            <label class="text-white mx-3">
-                                @Html.DisplayFor(model => model.Edad) años
-                            </label>
-                        </div>
-                        <div class="col-md-3 my-2  ">
-                            <label class="text-white">
-                                <strong>  @Html.DisplayNameFor(model => model.ProvinciaID):</strong>
-                            </label>
-                            <label class="text-white mx-3">
-                                @Html.DisplayFor(model => model.ProvinciaID)
-                            </label>
-                        </div>
-
-                        <div class="col-md-3 my-2  ">
-                            <label class="text-white">
-                                <strong>  @Html.DisplayNameFor(model => model.CantonID):</strong>
-                            </label>
-                            <label class="text-white mx-3">
-                                @Html.DisplayFor(model => model.CantonID)
-                            </label>
-                        </div>
-                        <div class="col-md-3 my-2  ">
-                            <label class="text-white">
-                                <strong>  @Html.DisplayNameFor(model => model.DistritoID):</strong>
-                            </label>
-                            <label class="text-white mx-3">
-                                @Html.DisplayFor(model => model.DistritoID)
-                            </label>
-                        </div>
-                        <div class="col-md-3 my-2  ">
-                            <label class="text-white">
-                                <strong>  @Html.DisplayNameFor(model => model.BarrioID):</strong>
-                            </label>
-                            <label class="text-white mx-3">
-                                @Html.DisplayFor(model => model.BarrioID)
-                            </label>
-                        </div>
-                        <div class="col-md-3 my-2  ">
-                            @if (Model.Estado == 1)
-                            {
+                            <div class="col-md-3 my-2 ">
                                 <label class="text-white">
-                                    <strong>  Condición:</strong>
+                                    <strong> @Html.DisplayNameFor(model => model.Cedula):</strong>
+                                </label>
+                                <label class="text-white  ">
+                                    @Html.DisplayFor(model => model.Cedula)
+                                </label>
+                            </div>
+                            <div class="col-md-3 my-2 ">
+                                <label class="text-white">
+                                    <strong>  @Html.DisplayNameFor(model => model.Nombre):</strong>
                                 </label>
                                 <label class="text-white mx-3">
-                                    Estudiante
+                                    @Html.DisplayFor(model => model.Nombre)
                                 </label>
-                            }
-                            else if (Model.Estado == 2)
-                            {
+                            </div>
+                            <div class="col-md-3 my-2  ">
                                 <label class="text-white">
-                                    <strong>  Condición:</strong>
+                                    <strong>  @Html.DisplayNameFor(model => model.Aoellido1):</strong>
                                 </label>
                                 <label class="text-white mx-3">
-                                    Egresado
+                                    @Html.DisplayFor(model => model.Aoellido1)
                                 </label>
-                            }
-                        </div>
-                        <div class="col-md-12 my-2 ">
-                            <label class="text-white">
-                                <strong>  @Html.DisplayNameFor(model => model.Direccion):</strong>
-                            </label>
-                            <label class="text-white mx-1">
-                                @Html.DisplayFor(model => model.Direccion)
-                            </label>
-                        </div>
-                        <hr />
-                        <p>Informacion del Padre o Madre</p>
-                        <div class="col-md-6 my-2 ">
-                            <label class="text-white">
-                                <strong>  @Html.DisplayNameFor(model => model.CedulaEncargado):</strong>
-                            </label>
-                            <label class="text-white mx-1">
-                                @Html.DisplayFor(model => model.CedulaEncargado)
-                            </label>
-                        </div>
-                        <div class="col-md-6 my-2 ">
-                            <label class="text-white">
-                                <strong>  @Html.DisplayNameFor(model => model.EncargadoLegal):</strong>
-                            </label>
-                            <label class="text-white mx-1">
-                                @Html.DisplayFor(model => model.EncargadoLegal)
-                            </label>
-                        </div>
-                        <div class="col-md-6 my-2 ">
-                            <label class="text-white">
-                                <strong>  @Html.DisplayNameFor(model => model.ContactoEmergencia):</strong>
-                            </label>
-                            <label class="text-white mx-1">
-                                @Html.DisplayFor(model => model.ContactoEmergencia)
-                            </label>
-                        </div>
-                        <hr />
-                        <div class="col-md-6 my-2 ">
-                            @if (Model.CursosMatriculados.Count > 0)
-                            {
-                                <h4>Cursos Matriculados:</h4>
-                                <ul>
-                                    @foreach (var matricula in Model.CursosMatriculados)
-                                    {
-                                        <li>@matricula.Cursos.NombreCursoo</li>
-                                    }
-                                </ul>
-                            }
-                            else
-                            {
-                                <p>No tiene cursos matriculados.</p>
-                            }
-                        </div>
+                            </div>
+                            <div class="col-md-3 my-2  ">
+                                <label class="text-white ">
+                                    <strong>  @Html.DisplayNameFor(model => model.Apellido2):</strong>
+                                </label>
+                                <label class="text-white mx-3">
+                                    @Html.DisplayFor(model => model.Apellido2)
+                                </label>
+                            </div>
+                            <div class="col-md-3 my-2 ">
+                                <label class="text-white">
+                                    <strong>  @Html.DisplayNameFor(model => model.FechaNacimiento):</strong>
+                                </label>
+                                <label class="text-white  ">
+                                    @Html.DisplayFor(model => model.FechaNacimiento)
+                                </label>
+                            </div>
+                            <div class="col-md-3 my-2 ">
+                                <label class="text-white">
+                                    <strong>  @Html.DisplayNameFor(model => model.Sexo):</strong>
+                                </label>
+                                <label class="text-white mx-3">
+                                    @Html.DisplayFor(model => model.Sexo)
+                                </label>
+                            </div>
+                            <div class="col-md-3 my-2  ">
+                                <label class="text-white">
+                                    <strong>  @Html.DisplayNameFor(model => model.Edad):</strong>
+                                </label>
+                                <label class="text-white mx-3">
+                                    @Html.DisplayFor(model => model.Edad) años
+                                </label>
+                            </div>
+                            <div class="col-md-3 my-2  ">
+                                <label class="text-white">
+                                    <strong>  @Html.DisplayNameFor(model => model.ProvinciaID):</strong>
+                                </label>
+                                <label class="text-white mx-3">
+                                    @Html.DisplayFor(model => model.ProvinciaID)
+                                </label>
+                            </div>
+                            <div class="col-md-3 my-2  ">
+                                <label class="text-white">
+                                    <strong>  @Html.DisplayNameFor(model => model.CantonID):</strong>
+                                </label>
+                                <label class="text-white mx-3">
+                                    @Html.DisplayFor(model => model.CantonID)
+                                </label>
+                            </div>
+                            <div class="col-md-3 my-2  ">
+                                <label class="text-white">
+                                    <strong>  @Html.DisplayNameFor(model => model.DistritoID):</strong>
+                                </label>
+                                <label class="text-white mx-3">
+                                    @Html.DisplayFor(model => model.DistritoID)
+                                </label>
+                            </div>
+                            <div class="col-md-3 my-2  ">
+                                <label class="text-white">
+                                    <strong>  @Html.DisplayNameFor(model => model.BarrioID):</strong>
+                                </label>
+                                <label class="text-white mx-3">
+                                    @Html.DisplayFor(model => model.BarrioID)
+                                </label>
+                            </div>
+                            <div class="col-md-3 my-2  ">
+
+                                @if (Model != null && Model.Estado == 1)
+                                {
+                                    <label class="text-white">
+                                        <strong>  Condición:</strong>
+                                    </label>
+                                    <label class="text-white mx-3">
+                                        Estudiante
+                                    </label>
+                                }
+                                else if (Model != null && Model.Estado == 2)
+                                {
+                                    <label class="text-white">
+                                        <strong>  Condición:</strong>
+                                    </label>
+                                    <label class="text-white mx-3">
+                                        Egresado
+                                    </label>
+
+
+                                }
+                            </div>
+                            <div class="col-md-12 my-2 ">
+                                <label class="text-white">
+                                    <strong>  @Html.DisplayNameFor(model => model.Direccion):</strong>
+                                </label>
+                                <label class="text-white mx-1">
+                                    @Html.DisplayFor(model => model.Direccion)
+                                </label>
+                            </div>
+                            <hr />
+                            <p>Informacion del Padre o Madre</p>
+                            <div class="col-md-6 my-2 ">
+                                <label class="text-white">
+                                    <strong>  @Html.DisplayNameFor(model => model.CedulaEncargado):</strong>
+                                </label>
+                                <label class="text-white mx-1">
+                                    @Html.DisplayFor(model => model.CedulaEncargado)
+                                </label>
+                            </div>
+                            <div class="col-md-6 my-2 ">
+                                <label class="text-white">
+                                    <strong>  @Html.DisplayNameFor(model => model.EncargadoLegal):</strong>
+                                </label>
+                                <label class="text-white mx-1">
+                                    @Html.DisplayFor(model => model.EncargadoLegal)
+                                </label>
+                            </div>
+                            <div class="col-md-6 my-2 ">
+                                <label class="text-white">
+                                    <strong>  @Html.DisplayNameFor(model => model.ContactoEmergencia):</strong>
+                                </label>
+                                <label class="text-white mx-1">
+                                    @Html.DisplayFor(model => model.ContactoEmergencia)
+                                </label>
+                            </div>
+                            <hr />
+                            <div class="col-md-6 my-2 ">
+                                @if (Model != null && Model.CursosMatriculados.Count > 0)
+                                {
+                                    <h4>Cursos Matriculados:</h4>
+                                    <ul>
+                                        @foreach (var matricula in Model.CursosMatriculados)
+                                        {
+                                            <li>@matricula.Cursos.NombreCursoo</li>
+                                        }
+                                    </ul>
+                                }
+                                else
+                                {
+                                    <p>No tiene cursos matriculados.</p>
+                                }
+                            </div>
+                        }
                     </div>
                 </form>
             </div>
         </div>
     </div>
     <div class="my-4">
-        <a class=" btn otorgar-boton p-1  px-2" asp-action="ListaAlumnos" asp-controller="Alumnos">Volver al Menu Anterior</a>
-        <a class="btn retornar-boton p-1 px-2 mx-4" asp-action="Actualizar" asp-route-id="@Model?.Cedula">Actualizar</a>
+        @if (User.IsInRole("SuperUsuario") || User.IsInRole("Administrador") || User.IsInRole("Profesor"))
+        {
+            <a class=" btn otorgar-boton p-1  px-2" asp-action="ListaAlumnos" asp-controller="Alumnos">Volver al Menu Anterior</a>
+            <a class="btn retornar-boton p-1 px-2 mx-4" asp-action="Actualizar" asp-route-id="@Model?.Cedula">Actualizar</a>
+        }
+        else
+        {
+            <a class=" btn otorgar-boton p-1  px-2" asp-action="Index" asp-controller="Home">Volver al Menu Anterior</a>
+        }
     </div>
 </div>

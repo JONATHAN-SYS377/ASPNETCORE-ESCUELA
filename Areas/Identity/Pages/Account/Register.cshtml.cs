@@ -155,9 +155,8 @@ namespace Escuela_Sor_Maria.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("El usuario creó una nueva cuenta con contraseña.");
-                    
-                    //await _userManager.AddToRoleAsync(user, Input.Role);
 
+                    await _userManager.AddToRoleAsync(user, "Visitante");
                     var userId = await _userManager.GetUserIdAsync(user);
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
@@ -176,6 +175,8 @@ namespace Escuela_Sor_Maria.Areas.Identity.Pages.Account
                     }
                     else
                     {
+                        // Asignar el rol "Visitante" al usuario recién registrado
+                        await _userManager.AddToRoleAsync(user, "Visitante");
                         await _signInManager.SignInAsync(user, isPersistent: false);
                         return LocalRedirect(returnUrl);
                     }

@@ -52,22 +52,40 @@
                             <td>
                                 Disponible
                             </td>
-                            <td>
-                                <a class="btn editar-boton p-1 px-2 " asp-action="ActualizarCurso" asp-controller="Cursos" asp-route-id="@item.IdCurso">Actualizar</a>
-                                <button type="button" class="btn eliminar-boton p-1" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
-                                        data-id="@item.IdCurso ">
-                                    Suspender Curso
-                                </button>
-                            </td>
+                            @if (User.IsInRole("SuperUsuario") || User.IsInRole("Administrador") || User.IsInRole("Profesor"))
+                            {
+                                <td>
+                                    <a class="btn editar-boton p-1 px-2 " asp-action="ActualizarCurso" asp-controller="Cursos" asp-route-id="@item.IdCurso">Actualizar</a>
+                                    @if (User.IsInRole("SuperUsuario") || User.IsInRole("Administrador"))
+                                    {
+                                    <button type="button" class="btn eliminar-boton p-1" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+                                            data-id="@item.IdCurso ">
+                                        Suspender Curso
+                                    </button>          
+                                    }
+                                </td>
+                            }
+                            else
+                            {
+
+                            }
                         }
                         else if (item.Estado == 2)
                         {
                             <td>
                                 No se Imparte
                             </td>
-                            <td>
-                                <a class="btn editar-boton p-1 px-2 " asp-action="ActualizarCurso" asp-controller="Cursos" asp-route-id="@item.IdCurso">Actualizar</a>
-                            </td>
+                            @if (User.IsInRole("SuperUsuario") || User.IsInRole("Administrador") || User.IsInRole("Profesor"))
+                            {
+                                <td>
+                                    <a class="btn editar-boton p-1 px-2 " asp-action="ActualizarCurso" asp-controller="Cursos" asp-route-id="@item.IdCurso">Actualizar</a>
+                                </td>
+                            }
+                            else
+                            {
+
+                            }
+                           
                         }
 
 

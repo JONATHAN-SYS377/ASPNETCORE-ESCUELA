@@ -101,7 +101,7 @@ namespace Escuela_Sor_Maria.Controllers
         public IActionResult AsignarRolUser(string? ID)
         {
 
-            var roles = _roleManager.Roles.ToList();
+            var roles = _roleManager.Roles.Where(r => r.Name != "SuperUsuario").ToList();
 
             ViewBag.rol = roles;
             ViewBag.id = ID;
@@ -112,7 +112,7 @@ namespace Escuela_Sor_Maria.Controllers
         [HttpPost]
         public IActionResult OtorgarRol(TbUnionUser_Role conten)
         {
-            var users = _userManager.Users.Where(x => x.Id == conten.UserId).FirstOrDefault();
+            var users = _userManager.Users.Where(x => x.Id == conten.UserId ).FirstOrDefault();
 
             _userManager.AddToRoleAsync(users, conten.RoleName).GetAwaiter().GetResult();
             return RedirectToAction(nameof(ListaUserRegistrados));

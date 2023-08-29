@@ -10,6 +10,7 @@ namespace Escuela_Sor_Maria.Models
 
         [Required]
         [ForeignKey(nameof(Estudiante))]
+        [Display(Name=" Nombre del Estudiante")]
         public string CedulaEstudianteID { get; set; }
 
         [Required]
@@ -17,9 +18,13 @@ namespace Escuela_Sor_Maria.Models
         public int MateriaID { get; set; }
 
         [Required]
+        [DataType(DataType.Date)]
+        [Display(Name = " Fecha de asignación de nota")]
         public  DateTime FechaCalificacion { get; set; }
 
         [Required]
+        [RegularExpression(@"^\d+$", ErrorMessage = "Ingrese un valor numérico válido.")]
+        [Display(Name = " Nota Obtenida")]
         public float NotaObtenida { get; set; }
 
         public virtual tbAlumnos Estudiante { get; set; }   

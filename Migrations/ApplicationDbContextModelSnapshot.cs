@@ -212,10 +212,7 @@ namespace Escuela_Sor_Maria.Migrations
             modelBuilder.Entity("Escuela_Sor_Maria.Models.tbCalificaciones", b =>
                 {
                     b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
 
                     b.Property<string>("CedulaEstudianteID")
                         .IsRequired()

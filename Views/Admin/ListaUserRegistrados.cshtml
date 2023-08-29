@@ -18,7 +18,7 @@
         <table class="table table-striped table text-center text-white  ">
             <thead>
                 <tr class="text-white">
-                    <th  hidden>ID Usuario</th>
+                    <th hidden>ID Usuario</th>
                     <th>Emails Registrados</th>
                     <th>Cedulas Registradas</th>
                     <th>Rol Asignados</th>
@@ -45,8 +45,21 @@
                                 var ExisteCedulaPersona = Model.Profesores.Any(p => p.Cedula == item.Email);
                                 if (ExisteCedulaPersona == false)
                                 {
-                                    <span>Visitante</span>
-
+                                    if (item.Email == "000000000")
+                                    {
+                                        foreach (var rol in idRol)
+                                        {
+                                            var NombreRol = Model.roles.Where(x => x.Id == rol.RoleId).Select(x => x.Name).FirstOrDefault();
+                                            if (NombreRol == "SuperUsuario")
+                                            {
+                                                <span>Super Usuario</span>
+                                            }
+                                        }
+                                    }else
+                                    {
+                                        <span>Visitante</span>
+                                    }
+                                   
                                 }
                                 else
                                 {
@@ -85,7 +98,7 @@
                                         </form>
                                     }
 
-                                    @*<a class="btn revocar-boton btn-sm p-1 " asp-action="AsignarRolUser">Revocar Rol</a>*@
+                                  
                                 }
                             }
                             else

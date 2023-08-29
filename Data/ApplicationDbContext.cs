@@ -55,6 +55,10 @@ namespace Escuela_Sor_Maria.Data
               .Property(m => m.id)
                  .ValueGeneratedNever(); // Esto deshabilita la generación automática de valores
 
+            modelBuilder.Entity<tbCalificaciones>()
+             .Property(m => m.id)
+                .ValueGeneratedNever(); // Esto deshabilita la generación automática de valores
+
 
         }
 

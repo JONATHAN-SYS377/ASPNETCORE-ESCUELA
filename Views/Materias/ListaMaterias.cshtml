@@ -6,71 +6,95 @@
 <div class="container-fluid">
     <h2>Lista de Materias</h2>
     <hr />
-    <div class="shadow-mj br-15 px-1 py-3 offser-12">
-        <div class="table-responsive">
-            <table class="table table-striped">
-                <thead>
-                    <tr class="text-white text-center">
-                        <th>
-                           Materias
-                        </th>
-                        <th>
-                            Cursos
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Materia.Descripcion)
-                        </th>
-                        <th>
-                             Nombre del Profesor
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Materia.Estado)
-                        </th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model)
-                    {
-                        <tr class="text-center text-white">
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Materia.NombreMateria)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Curso.NombreCursoo)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Materia.Descripcion)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.NombreCompletoProfesor)
-                            </td>
-                            @if (item.Materia.Estado == 1)
-                            {
-                                <td>Disponible</td>
-                                <td>
-                                    <a class="btn editar-boton p-1 px-2 mx-2" asp-action="ActualizarMateria" asp-controller="Materias" asp-route-id="@item.Materia.IdMateria">Actualizar</a>
-                                    <button type="button" class="btn eliminar-boton p-1" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
-                                            data-id="@item.Materia.IdMateria">
-                                        Suspender
-                                    </button>
-                                </td>
-                            }
-                            else if (item.Materia.Estado == 2)
-                            {
-                                <td>No se Imparte</td>
-                                <td>
-                                    <a class="btn editar-boton p-1 px-2 mx-2" asp-action="ActualizarMateria" asp-controller="Materias" asp-route-id="@item.Materia.IdMateria">Actualizar</a>
-                                </td>
-                            }
+    @foreach (var grupo in Model.GroupBy(item=>item.Curso))
+    {
+        <div class="shadow-mj br-15 px-1 py-3 offser-12 my-4">
+            <h3 class="text-center text-">@grupo.Key.NombreCursoo</h3>
+            <hr />
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr class="text-white text-center">
+                            <th>
+                                Materias
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Materia.Descripcion)
+                            </th>
+                            <th>
+                                Nombre del Profesor
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Materia.Estado)
+                            </th>
+                            <th></th>
                         </tr>
-                    }
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in grupo)
+                        {
+                            <tr class="text-center text-white">
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Materia.NombreMateria)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Materia.Descripcion)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.NombreCompletoProfesor)
+                                </td>
+                                @if (item.Materia.Estado == 1)
+                                {
+                                    <td>Disponible</td>
+                                    @if (User.IsInRole("SuperUsuario") || User.IsInRole("Administrador") || User.IsInRole("Profesor"))
+                                    {
+                                        <td>
+                                            <a class="btn editar-boton p-1 px-2 mx-2" asp-action="ActualizarMateria" asp-controller="Materias" asp-route-id="@item.Materia.IdMateria">Actualizar</a>
+                                            @if (User.IsInRole("SuperUsuario") || User.IsInRole("Administrador"))
+                                            {
+                                                
+                                            <button type="button" class="btn eliminar-boton p-1" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+                                                    data-id="@item.Materia.IdMateria">
+                                                Suspender
+                                            </button>
+                                            }
+                                        </td>
+
+                                    }
+                                    else
+                                    {
+
+                                    }
+                                }
+                                else if (item.Materia.Estado == 2)
+                                {
+                                    <td>No se Imparte</td>
+                                    @if (User.IsInRole("SuperUsuario") || User.IsInRole("Administrado") || User.IsInRole("Profesor"))
+                                    {
+                                        <td>
+                                            <a class="btn editar-boton p-1 px-2 mx-2" asp-action="ActualizarMateria" asp-controller="Materias" asp-route-id="@item.Materia.IdMateria">Actualizar</a>
+                                        </td>
+
+                                    }
+                                    else
+                                    {
+
+                                    }
+                                }
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
         </div>
-    </div>
+        <hr />
+    }
+   
     <a class=" btn otorgar-boton p-1 px-2  my-3" asp-action="Index" asp-controller="Home">Volver al Inicio</a>
-    <a class="btn retornar-boton p-1 px-2 mx-5" asp-area="" asp-action="RegistrarMateria" asp-controller="Materias">Registrar Materias</a>
+    @if (User.IsInRole("SuperUsuario") || User.IsInRole("Administrado"))
+    {
+    <a class="btn retornar-boton p-1 px-2 mx-5" asp-area="" asp-action="RegistrarMateria" asp-controller="Materias">Registrar Materias</a>    
+    }
 </div>
 
 <!-- Modal -->
@@ -85,7 +109,7 @@
                 ¿Confirmar la Suspender esta materia?
             </div>
             <div class="modal-footer">
-                <form asp-action="Delete" >
+                <form asp-action="Delete">
                     <input type="hidden" name="Id" />
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-danger">Suspender</button>
